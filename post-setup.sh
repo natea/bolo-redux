@@ -1,5 +1,5 @@
 # Handle CLAUDE.md to claude.md replacement
-if [ -f "$WORKSPACE_FOLDER/devpods/CLAUDE.md" ]; then
+if [ -f "$WORKSPACE_FOLDER/CLAUDE.md" ]; then
     # Delete existing claude.md if it exists
     if [ -f "$WORKSPACE_FOLDER/claude.md" ]; then
         rm "$WORKSPACE_FOLDER/claude.md"
@@ -7,14 +7,14 @@ if [ -f "$WORKSPACE_FOLDER/devpods/CLAUDE.md" ]; then
     fi
     
     # Copy CLAUDE.md as claude.md
-    cp "$WORKSPACE_FOLDER/devpods/CLAUDE.md" "$WORKSPACE_FOLDER/claude.md"
+    cp "$WORKSPACE_FOLDER/CLAUDE.md" "$WORKSPACE_FOLDER/claude.md"
     echo "✅ Copied CLAUDE.md to workspace root as claude.md"
 else
-    echo "⚠️  CLAUDE.md not found in devpods/"
+    echo "⚠️  CLAUDE.md not found in workspace root"
 fi
 
 # Copy additional agents if not already done
-ADDITIONAL_AGENTS_DIR="$WORKSPACE_FOLDER/devpods/additional-agents"#!/bin/bash
+ADDITIONAL_AGENTS_DIR="$WORKSPACE_FOLDER/additional-agents"#!/bin/bash
 
 echo "=== Post-Setup Configuration ==="
 echo "WORKSPACE_FOLDER: $WORKSPACE_FOLDER"

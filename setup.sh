@@ -39,7 +39,7 @@ cp -r temp-agents/agents/*.md .
 rm -rf temp-agents
 
 # Copy additional agents if they're included in the repo
-ADDITIONAL_AGENTS_DIR="$WORKSPACE_FOLDER/devpods/additional-agents"
+ADDITIONAL_AGENTS_DIR="$WORKSPACE_FOLDER/additional-agents"
 if [ -d "$ADDITIONAL_AGENTS_DIR" ]; then
     echo "Copying additional agents..."
     
@@ -600,10 +600,10 @@ No manual configuration required - all paths work out of the box!
 EOF
 
 # Delete existing claude.md and copy CLAUDE.md to overwrite it if it exists
-if [ -f "$WORKSPACE_FOLDER/devpods/CLAUDE.md" ]; then
+if [ -f "$WORKSPACE_FOLDER/CLAUDE.md" ]; then
     echo "Found CLAUDE.md, replacing claude.md with it..."
     rm -f "$WORKSPACE_FOLDER/claude.md"
-    cp "$WORKSPACE_FOLDER/devpods/CLAUDE.md" "$WORKSPACE_FOLDER/claude.md"
+    cp "$WORKSPACE_FOLDER/CLAUDE.md" "$WORKSPACE_FOLDER/claude.md"
     echo "✅ Replaced claude.md with CLAUDE.md"
 fi
 
