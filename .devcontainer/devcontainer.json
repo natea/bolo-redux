@@ -1,7 +1,51 @@
 {
     "name": "Claude Dev Workspace",
     "image": "mcr.microsoft.com/devcontainers/universal:2-linux",
-    "remoteUser": "vscode",
+    "remoteUser": "codespace",
+    "features": {
+        "ghcr.io/devcontainers/features/rust:1": {
+            "version": "1.70"
+        },
+        "ghcr.io/devcontainers/features/docker-in-docker:2": {},
+        "ghcr.io/devcontainers/features/node:1": {}
+    },
+    "containerEnv": {
+        "WORKSPACE_FOLDER": "${localWorkspaceFolder}",
+        "DEVPOD_WORKSPACE_FOLDER": "${localWorkspaceFolder}",
+        "AGENTS_DIR": "${localWorkspaceFolder}/agents"
+    },
+    "postCreate{
+    "name": "Claude Dev Workspace",
+    "image": "mcr.microsoft.com/devcontainers/universal:2-linux",
+    "remoteUser": "codespace",
+    "features": {
+        "ghcr.io/devcontainers/features/rust:1": {
+            "version": "1.70"
+        },
+        "ghcr.io/devcontainers/features/docker-in-docker:2": {},
+        "ghcr.io/devcontainers/features/node:1": {}
+    },
+    "containerEnv": {
+        "WORKSPACE_FOLDER": "${localWorkspaceFolder}",
+        "DEVPOD_WORKSPACE_FOLDER": "${localWorkspaceFolder}",
+        "AGENTS_DIR": "${localWorkspaceFolder}/agents"
+    },
+    "postCreateCommand": "sudo apt-get update && sudo apt-get install -y tmux htop && if [ -f ${WORKSPACE_FOLDER}/devpods/setup.sh ]; then chmod +x ${WORKSPACE_FOLDER}/devpods/setup.sh && ${WORKSPACE_FOLDER}/devpods/setup.sh; fi",
+    "postStartCommand": "if [ -f ${WORKSPACE_FOLDER}/devpods/post-setup.sh ]; then chmod +x ${WORKSPACE_FOLDER}/devpods/post-setup.sh && ${WORKSPACE_FOLDER}/devpods/post-setup.sh; fi",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "rooveterinaryinc.roo-cline",
+                "vsls-contrib.gistfs",
+                "github.copilot",
+                "github.copilot-chat"
+            ],
+            "settings": {
+                "terminal.integrated.profiles.linux": {
+                    "tmux-workspace{
+    "name": "Claude Dev Workspace",
+    "image": "mcr.microsoft.com/devcontainers/universal:2-linux",
+    "remoteUser": "codespace",
     "features": {
         "ghcr.io/devcontainers/features/rust:1": {
             "version": "1.70"
