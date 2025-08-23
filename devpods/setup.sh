@@ -38,6 +38,35 @@ fi
 cd "$WORKSPACE_FOLDER"
 npx claude-flow@alpha init --force
 
+# 🪝 Configure Claude Code hooks for automatic context loading
+echo "🪝 Setting up Claude Code hooks for automatic context loading..."
+mkdir -p .claude
+
+# Create hooks configuration that auto-loads context files
+cat << 'HOOKS_EOF' > .claude/settings.json
+{
+  "hooks": {
+    "sessionStartHook": {
+      "command": "bash",
+      "args": ["-c", "echo '=== 📋 LOADING CLAUDE CONTEXT ===' && if [ -f 'CLAUDE.md' ]; then echo '🤖 Claude Rules:' && cat CLAUDE.md && echo -e '\\n'; fi && if [ -f 'agents/doc-planner.md' ]; then echo '📋 Doc Planner Agent:' && cat agents/doc-planner.md && echo -e '\\n'; fi && if [ -f 'agents/microtask-breakdown.md' ]; then echo '🔧 Microtask Breakdown Agent:' && cat agents/microtask-breakdown.md && echo -e '\\n'; fi && echo '=== ✅ CONTEXT LOADED ===\\n'"],
+      "alwaysRun": true
+    },
+    "postEditHook": {
+      "command": "npx",
+      "args": ["claude-flow@alpha", "hooks", "post-edit", "--file", "$CLAUDE_EDITED_FILE", "--format", "true"],
+      "alwaysRun": true
+    }
+  }
+}
+HOOKS_EOF
+
+echo "✅ Claude Code hooks configured:"
+echo "  - sessionStartHook: Auto-loads CLAUDE.md + agents on every session"
+echo "  - postEditHook: Auto-formats code after edits"
+
+# Fix hook variable interpolation for Claude Code compatibility
+npx claude-flow@alpha fix-hook-variables .claude/settings.json 2>/dev/null || echo "Hook variables already compatible"
+
 # Setup Node.js project if package.json doesn't exist
 if [ ! -f "package.json" ]; then
   echo "📦 Initializing Node.js project..."
@@ -179,8 +208,28 @@ fi
 # Create dsp alias for claude --dangerously-skip-permissions
 echo 'alias dsp="claude --dangerously-skip-permissions"' >> ~/.bashrc
 
+# Create claude-flow context loading aliases
+echo "🔗 Creating Claude Flow context loading aliases..."
+cat << 'ALIASES_EOF' >> ~/.bashrc
+
+# Claude Flow context loading aliases
+alias load-claude='cat CLAUDE.md 2>/dev/null || echo "CLAUDE.md not found"'
+alias load-doc-planner='cat agents/doc-planner.md 2>/dev/null || echo "doc-planner.md not found"'
+alias load-microtask='cat agents/microtask-breakdown.md 2>/dev/null || echo "microtask-breakdown.md not found"'
+alias load-all-agents='echo "=== CLAUDE RULES ===" && cat CLAUDE.md 2>/dev/null && echo -e "\n=== DOC PLANNER ===" && cat agents/doc-planner.md 2>/dev/null && echo -e "\n=== MICROTASK BREAKDOWN ===" && cat agents/microtask-breakdown.md 2>/dev/null'
+
+# Claude Flow with auto-context loading
+alias cf-swarm='(cat CLAUDE.md 2>/dev/null && echo -e "\n---\n" && cat agents/doc-planner.md 2>/dev/null && echo -e "\n---\n" && cat agents/microtask-breakdown.md 2>/dev/null) | npx claude-flow@alpha swarm'
+alias cf-hive='(cat CLAUDE.md 2>/dev/null && echo -e "\n---\n" && cat agents/doc-planner.md 2>/dev/null && echo -e "\n---\n" && cat agents/microtask-breakdown.md 2>/dev/null) | npx claude-flow@alpha hive-mind spawn'
+
+ALIASES_EOF
+
 echo "Setup completed successfully!"
 echo "🎯 Environment is now 100% production-ready!"
 echo "✅ TypeScript ES module configuration fixed"
 echo "✅ Playwright tests configured with proper imports"
 echo "✅ DSP alias configured"
+echo "✅ Claude Code hooks configured for automatic context loading"
+echo "✅ Claude Flow context loading aliases created:"
+echo "    - load-claude, load-doc-planner, load-microtask, load-all-agents"
+echo "    - cf-swarm, cf-hive (auto-loads context)"
