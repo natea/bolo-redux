@@ -32,7 +32,7 @@ export WORKSPACE_FOLDER="$(pwd)"
 export AGENTS_DIR="$WORKSPACE_FOLDER/agents"
 
 # Run all setup scripts
-./devpods/setup.sh && ./devpods/post-setup.sh && ./devpods/tmux-workspace.sh
+./devpods/setup.sh -y && ./devpods/post-setup.sh -y && ./devpods/tmux-workspace.sh -y
 ```
 
 ## 🚀 One-Command Setup Script
@@ -71,9 +71,9 @@ echo "  AGENTS_DIR: $AGENTS_DIR"
 
 # Run setup scripts
 echo "🔧 Running setup scripts..."
-./devpods/setup.sh
-./devpods/post-setup.sh
-./devpods/tmux-workspace.sh &
+./devpods/setup.sh -y
+./devpods/post-setup.sh -y
+./devpods/tmux-workspace.sh -y &
 disown
 
 echo ""
@@ -96,7 +96,7 @@ echo "  4. Start building with Claude Flow!"
 EOF
 
 chmod +x install-devpods.sh
-./install-devpods.sh
+./install-devpods.sh -y
 ```
 
 ## 🎯 Super Quick One-Liner
@@ -109,7 +109,7 @@ curl -s https://raw.githubusercontent.com/marcuspat/turbo-flow-claude/main/devpo
 curl -s https://raw.githubusercontent.com/marcuspat/turbo-flow-claude/main/devpods/tmux-workspace.sh -o tmux-workspace.sh && \
 mkdir -p devpods && mv *.sh devpods/ && chmod +x devpods/*.sh && \
 export WORKSPACE_FOLDER="$(pwd)" AGENTS_DIR="$(pwd)/agents" && \
-./devpods/setup.sh -y && ./devpods/post-setup.sh -y && ./devpods/tmux-workspace.sh -y
+./devpods/setup.sh && ./devpods/post-setup.sh && ./devpods/tmux-workspace.sh
 ```
 
 ## 📁 What Gets Installed
