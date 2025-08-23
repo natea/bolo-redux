@@ -116,4 +116,5 @@ else
    echo "⚠️ CLAUDE.md not found in $DEVPOD_DIR - using default CLAUDE.md"
 fi
 
+echo 'alias dsp="claude --dangerously-skip-permissions"' >> ~/.bashrc
 echo "Setup completed successfully!"
