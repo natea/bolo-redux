@@ -14,8 +14,8 @@
         "DEVPOD_WORKSPACE_FOLDER": "${localWorkspaceFolder}",
         "AGENTS_DIR": "${localWorkspaceFolder}/agents"
     },
-    "postCreateCommand": "sudo apt-get update && sudo apt-get install -y tmux htop && if [ -f ${localWorkspaceFolder}/devpods/setup.sh ]; then chmod +x ${localWorkspaceFolder}/devpods/setup.sh && ${localWorkspaceFolder}/devpods/setup.sh; fi",
-    "postStartCommand": "if [ -f ${localWorkspaceFolder}/devpods/post-setup.sh ]; then chmod +x ${localWorkspaceFolder}/devpods/post-setup.sh && ${localWorkspaceFolder}/devpods/post-setup.sh; fi",
+    "postCreateCommand": "sudo apt-get update && sudo apt-get install -y tmux htop && chmod +x ${localWorkspaceFolder}/devpods/*.sh && if [ -f ${localWorkspaceFolder}/devpods/setup.sh ]; then ${localWorkspaceFolder}/devpods/setup.sh; fi",
+    "postStartCommand": "chmod +x ${localWorkspaceFolder}/devpods/*.sh && if [ -f ${localWorkspaceFolder}/devpods/post-setup.sh ]; then ${localWorkspaceFolder}/devpods/post-setup.sh; fi",
     "customizations": {
         "vscode": {
             "extensions": [
@@ -28,7 +28,7 @@
                 "terminal.integrated.profiles.linux": {
                     "tmux-workspace": {
                         "path": "/bin/bash",
-                        "args": ["-c", "if [ -f ${localWorkspaceFolder}/devpods/tmux-workspace.sh ]; then ${localWorkspaceFolder}/devpods/tmux-workspace.sh; else bash; fi"]
+                        "args": ["-c", "chmod +x ${localWorkspaceFolder}/devpods/tmux-workspace.sh 2>/dev/null; if [ -f ${localWorkspaceFolder}/devpods/tmux-workspace.sh ]; then ${localWorkspaceFolder}/devpods/tmux-workspace.sh; else bash; fi"]
                     }
                 },
                 "terminal.integrated.defaultProfile.linux": "tmux-workspace"
