@@ -1,10 +1,14 @@
 #!/bin/bash
 set -ex  # Add -x for debugging output
 
+# Get the directory where this script is located
+readonly DEVPOD_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
 echo "=== Claude Dev Environment Setup ==="
 echo "WORKSPACE_FOLDER: $WORKSPACE_FOLDER"
 echo "DEVPOD_WORKSPACE_FOLDER: $DEVPOD_WORKSPACE_FOLDER"
 echo "AGENTS_DIR: $AGENTS_DIR"
+echo "DEVPOD_DIR: $DEVPOD_DIR"
 
 # Install npm packages
 npm install -g @anthropic-ai/claude-code
