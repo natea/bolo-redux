@@ -522,6 +522,8 @@ cp /path/to/claude-config/devpods/tmux-workspace.sh ./
 ```bash
 # From your project root directory
 devpod up . --ide vscode
+# From you local workstation pulling it across the wire
+devpod up https://github.com/username/reponame --ide vscode
 ```
 
 #### ⚙️ **Step 4: Customize for Your Project**
