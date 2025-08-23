@@ -109,7 +109,7 @@ curl -s https://raw.githubusercontent.com/marcuspat/turbo-flow-claude/main/devpo
 curl -s https://raw.githubusercontent.com/marcuspat/turbo-flow-claude/main/devpods/tmux-workspace.sh -o tmux-workspace.sh && \
 mkdir -p devpods && mv *.sh devpods/ && chmod +x devpods/*.sh && \
 export WORKSPACE_FOLDER="$(pwd)" AGENTS_DIR="$(pwd)/agents" && \
-./devpods/setup.sh && ./devpods/post-setup.sh && ./devpods/tmux-workspace.sh
+./devpods/setup.sh -y && ./devpods/post-setup.sh -y && ./devpods/tmux-workspace.sh -y
 ```
 
 ## 📁 What Gets Installed
