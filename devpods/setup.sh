@@ -179,6 +179,60 @@ fi
 # Create dsp alias for claude --dangerously-skip-permissions
 echo 'alias dsp="claude --dangerously-skip-permissions"' >> ~/.bashrc
 
+# 🔧 Create Claude Flow context wrapper script
+echo "🔧 Creating Claude Flow context wrapper..."
+cat << 'WRAPPER_EOF' > cf-with-context.sh
+#!/bin/bash
+# Claude Flow wrapper that auto-loads context files
+
+load_context() {
+    local context=""
+    
+    # Load CLAUDE.md
+    if [[ -f "CLAUDE.md" ]]; then
+        context+="=== CLAUDE RULES ===\n$(cat CLAUDE.md)\n\n"
+    fi
+    
+    # Load doc-planner.md
+    if [[ -f "agents/doc-planner.md" ]]; then
+        context+="=== DOC PLANNER AGENT ===\n$(cat agents/doc-planner.md)\n\n"
+    fi
+    
+    # Load microtask-breakdown.md
+    if [[ -f "agents/microtask-breakdown.md" ]]; then
+        context+="=== MICROTASK BREAKDOWN AGENT ===\n$(cat agents/microtask-breakdown.md)\n\n"
+    fi
+    
+    echo -e "$context"
+}
+
+# Check command type and execute with context
+case "$1" in
+    "swarm")
+        load_context | npx claude-flow@alpha swarm "${@:2}" --claude
+        ;;
+    "hive-mind")
+        if [[ "$2" == "spawn" ]]; then
+            load_context | npx claude-flow@alpha hive-mind spawn "${@:3}" --claude
+        else
+            npx claude-flow@alpha hive-mind "$@"
+        fi
+        ;;
+    *)
+        load_context | npx claude-flow@alpha "$@" --claude
+        ;;
+esac
+WRAPPER_EOF
+
+chmod +x cf-with-context.sh
+
+# Add aliases
+cat << 'ALIASES_EOF' >> ~/.bashrc
+alias cf="./cf-with-context.sh"
+alias cf-swarm="./cf-with-context.sh swarm"
+alias cf-hive="./cf-with-context.sh hive-mind spawn"
+ALIASES_EOF
+
 echo "Setup completed successfully!"
 echo "🎯 Environment is now 100% production-ready!"
 echo "✅ TypeScript ES module configuration fixed"
