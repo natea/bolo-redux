@@ -1,3 +1,5 @@
+I asked claude "if I tell you to write code what rules are you going to follow - ouput all the rules you will follow to rulesreport.md" this was his answer:
+
 # Code Writing Rules
 
 ## 🚨 CRITICAL EXECUTION RULES
