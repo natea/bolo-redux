@@ -623,22 +623,3 @@ fi
 
 echo "Setup completed successfully!"
 
-# Run post-setup verification
-echo "Running post-setup verification..."
-if [ -f "$DEVPOD_DIR/post-setup.sh" ]; then
-    chmod +x "$DEVPOD_DIR/post-setup.sh"
-    "$DEVPOD_DIR/post-setup.sh"
-else
-    echo "⚠️ post-setup.sh not found at $DEVPOD_DIR/post-setup.sh"
-fi
-
-# Set up tmux workspace
-echo "Setting up tmux workspace..."
-if [ -f "$DEVPOD_DIR/tmux-workspace.sh" ]; then
-    chmod +x "$DEVPOD_DIR/tmux-workspace.sh"
-    "$DEVPOD_DIR/tmux-workspace.sh"
-else
-    echo "⚠️ tmux-workspace.sh not found at $DEVPOD_DIR/tmux-workspace.sh"
-fi
-
-echo "🎉 Complete setup finished!"
