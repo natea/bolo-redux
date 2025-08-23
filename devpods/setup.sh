@@ -179,20 +179,8 @@ fi
 # Create dsp alias for claude --dangerously-skip-permissions
 echo 'alias dsp="claude --dangerously-skip-permissions"' >> ~/.bashrc
 
-# Install Terminal Jarvis using Cargo (most reliable method)
-echo "🤖 Installing Terminal Jarvis via Cargo..."
-cargo install terminal-jarvis
-
-# Verify Terminal Jarvis installation
-if command -v terminal-jarvis >/dev/null 2>&1; then
-    echo "✅ Terminal Jarvis installed successfully"
-else
-    echo "❌ Terminal Jarvis installation failed"
-fi
-
 echo "Setup completed successfully!"
 echo "🎯 Environment is now 100% production-ready!"
 echo "✅ TypeScript ES module configuration fixed"
 echo "✅ Playwright tests configured with proper imports"
 echo "✅ DSP alias configured"
-echo "✅ Terminal Jarvis installed"
