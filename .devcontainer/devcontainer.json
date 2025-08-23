@@ -10,12 +10,12 @@
         "ghcr.io/devcontainers/features/node:1": {}
     },
     "containerEnv": {
-        "WORKSPACE_FOLDER": "${localWorkspaceFolder}",
-        "DEVPOD_WORKSPACE_FOLDER": "${localWorkspaceFolder}",
-        "AGENTS_DIR": "${localWorkspaceFolder}/agents"
+        "WORKSPACE_FOLDER": "${containerWorkspaceFolder}",
+        "DEVPOD_WORKSPACE_FOLDER": "${containerWorkspaceFolder}",
+        "AGENTS_DIR": "${containerWorkspaceFolder}/agents"
     },
-    "postCreateCommand": "sudo apt-get update && sudo apt-get install -y tmux htop && chmod +x ${localWorkspaceFolder}/devpods/*.sh && if [ -f ${localWorkspaceFolder}/devpods/setup.sh ]; then ${localWorkspaceFolder}/devpods/setup.sh; fi",
-    "postStartCommand": "chmod +x ${localWorkspaceFolder}/devpods/*.sh && if [ -f ${localWorkspaceFolder}/devpods/post-setup.sh ]; then ${localWorkspaceFolder}/devpods/post-setup.sh; fi",
+    "postCreateCommand": "sudo apt-get update && sudo apt-get install -y tmux htop && chmod +x ${containerWorkspaceFolder}/devpods/*.sh 2>/dev/null || true && if [ -f ${containerWorkspaceFolder}/devpods/setup.sh ]; then ${containerWorkspaceFolder}/devpods/setup.sh; fi",
+    "postStartCommand": "chmod +x ${containerWorkspaceFolder}/devpods/*.sh 2>/dev/null || true && if [ -f ${containerWorkspaceFolder}/devpods/post-setup.sh ]; then ${containerWorkspaceFolder}/devpods/post-setup.sh; fi",
     "customizations": {
         "vscode": {
             "extensions": [
@@ -28,7 +28,7 @@
                 "terminal.integrated.profiles.linux": {
                     "tmux-workspace": {
                         "path": "/bin/bash",
-                        "args": ["-c", "chmod +x ${localWorkspaceFolder}/devpods/tmux-workspace.sh 2>/dev/null; if [ -f ${localWorkspaceFolder}/devpods/tmux-workspace.sh ]; then ${localWorkspaceFolder}/devpods/tmux-workspace.sh; else bash; fi"]
+                        "args": ["-c", "chmod +x ${containerWorkspaceFolder}/devpods/tmux-workspace.sh 2>/dev/null || true; if [ -f ${containerWorkspaceFolder}/devpods/tmux-workspace.sh ]; then ${containerWorkspaceFolder}/devpods/tmux-workspace.sh; else bash; fi"]
                     }
                 },
                 "terminal.integrated.defaultProfile.linux": "tmux-workspace"
