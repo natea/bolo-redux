@@ -910,8 +910,8 @@ devpod up turbo-flow-claude --ide vscode
 
 ## 📚 Resources
 - 📖 [DevPod Documentation](https://devpod.sh/docs)
-- ⚡ [Claude Flow SPARC](https://github.com/ruvnet/claude-flow)
-- 🤖 [610ClaudeSubagents Repository](https://github.com/ChrisRoyse/610ClaudeSubagents) - The source of 600+ specialized Claude agents
+- ⚡ [Claude Flow SPARC](https://github.com/ruvnet/claude-flow) - by Reuven Cohen.
+- 🤖 [610ClaudeSubagents Repository](https://github.com/ChrisRoyse/610ClaudeSubagents) - The source of 600+ specialized Claude agents by Christopher Royse.
 - 📊 [Claude Usage Monitor CLI](https://github.com/jedarden/claude-usage-monitor-cli) - Track your Claude API usage (Note: We use the npm version `claude-usage-cli`)
 
 ---
