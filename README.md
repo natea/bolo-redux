@@ -2,14 +2,101 @@
 
 This directory contains the complete configuration for setting up a Claude Code development environment with 600+ specialized AI agents using DevPod.
 
+## Prerequisites & Installation
+
+### 1. Install DevPod
+
+#### macOS
+```bash
+# Using Homebrew (recommended)
+brew install loft-sh/devpod/devpod
+
+# Or download from releases
+curl -L -o devpod "https://github.com/loft-sh/devpod/releases/latest/download/devpod-darwin-amd64" && sudo install -c -m 0755 devpod /usr/local/bin && rm -f devpod
+
+# For Apple Silicon Macs
+curl -L -o devpod "https://github.com/loft-sh/devpod/releases/latest/download/devpod-darwin-arm64" && sudo install -c -m 0755 devpod /usr/local/bin && rm -f devpod
+```
+
+#### Windows
+```powershell
+# Using Chocolatey
+choco install devpod
+
+# Using Scoop
+scoop bucket add loft-sh https://github.com/loft-sh/scoop-bucket.git
+scoop install loft-sh/devpod
+
+# Or download manually from: https://github.com/loft-sh/devpod/releases
+```
+
+#### Linux
+```bash
+# Download and install
+curl -L -o devpod "https://github.com/loft-sh/devpod/releases/latest/download/devpod-linux-amd64" && sudo install -c -m 0755 devpod /usr/local/bin && rm -f devpod
+```
+
+### 2. Setup DigitalOcean Provider
+
+#### Create DigitalOcean Account & API Token
+1. Sign up at [DigitalOcean](https://www.digitalocean.com/)
+2. Go to API → Personal access tokens
+3. Generate new token with read/write permissions
+4. Copy the token (you'll need it in the next step)
+
+#### Configure DevPod with DigitalOcean
+```bash
+# Add DigitalOcean as provider
+devpod provider add digitalocean
+
+# Configure with your API token
+devpod provider use digitalocean
+
+# Set your API token (replace with your actual token)
+devpod provider update digitalocean --option DIGITALOCEAN_ACCESS_TOKEN=your_token_here
+
+# Optional: Set droplet size (default is 8GB RAM)
+# 2GB RAM ($12/month) - Good for most development
+devpod provider update digitalocean --option DROPLET_SIZE=s-2vcpu-2gb
+
+# 4GB RAM ($24/month) - For memory-intensive work
+devpod provider update digitalocean --option DROPLET_SIZE=s-2vcpu-4gb
+
+# 8GB RAM ($48/month) - Current default, best performance
+devpod provider update digitalocean --option DROPLET_SIZE=s-4vcpu-8gb
+```
+
+### 3. Fix DevPod Permissions (macOS/Linux)
+If you encounter permission errors, run this one-time fix:
+```bash
+# Fix all DevPod permissions (run once)
+sudo chown -R $(whoami):staff ~/.devpod && \
+find ~/.devpod -type d -exec chmod 755 {} \; && \
+find ~/.devpod -type f -exec chmod 644 {} \; && \
+find ~/.devpod -name "*provider*" -type f -path "*/binaries/*" -exec chmod +x {} \; && \
+find ~/.devpod -name "devpod*" -type f -exec chmod +x {} \;
+```
+
+### 4. Verify Installation
+```bash
+# Check DevPod version
+devpod version
+
+# List available providers
+devpod provider list
+
+# Test DigitalOcean connection
+devpod provider test digitalocean
+```
+
 ## What's Included
 
 ### Configuration Files
 - **devcontainer.json** - DevContainer configuration with all features, extensions, and auto-launch settings
 - **setup.sh** - Automated setup script that installs all tools and 600+ Claude agents
+- **post-setup.sh** - Verification script that runs after VS Code connects
 - **tmux-workspace.sh** - Creates a 4-window tmux session optimized for Claude development
 - **additional-agents/** - Directory containing custom agents not in the main collection
-- **fix_permissions_mac.sh** - script to fix the local devpod permissions on a mac
   
 ### Installed Features
 - **Docker-in-Docker** - Run containers inside your development container
@@ -47,7 +134,7 @@ These fundamentals are embedded throughout the claude.md configuration, ensuring
 
 ### 1. Create DevPod Workspace
 ```bash
-devpod up https://github.com/marcuspat/agentists-quickstart --devcontainer-path devpods/claude-code/devcontainer.json --ide vscode
+devpod up https://github.com/marcuspat/turbo-flow-claude --ide vscode
 ```
 
 This single command:
@@ -58,25 +145,59 @@ This single command:
 - Opens VSCode connected to the container
 
 ### 2. Automatic Setup
-When VSCode opens, a terminal will automatically launch with tmux configured with 4 windows:
+When VSCode opens, the workspace automatically:
+- **postCreateCommand**: Runs setup.sh to install all dependencies and agents
+- **postAttachCommand**: Runs post-setup.sh to verify installations and create tmux workspace
+- **Terminal Profile**: Auto-connects to tmux workspace when opening terminals
+
+The tmux workspace includes 4 windows:
 - **Window 0 (Claude-1)**: Primary Claude workspace
 - **Window 1 (Claude-2)**: Secondary Claude workspace
-- **Window 2 (Claude-Meter)**: Running `claude-usage-cli` for usage monitoring
+- **Window 2 (Claude-Monitor)**: Running `claude-monitor` for usage monitoring
 - **Window 3 (htop)**: System resource monitor
 
 ### 3. Using Claude Agents
 ```bash
 # List all available agents
-ls /workspaces/agentists-quickstart/agents/*.md | wc -l
+ls /workspaces/turbo-flow-claude/agents/*.md | wc -l
 
 # Search for specific agents
-ls /workspaces/agentists-quickstart/agents/*test*.md
+ls /workspaces/turbo-flow-claude/agents/*test*.md
 
 # Tell Claude to use agents
-"Look in /workspaces/agentists-quickstart/agents/ and select the best agents for [task]"
+"Look in /workspaces/turbo-flow-claude/agents/ and select the best agents for [task]"
 
 # Load a specific agent
-cat /workspaces/agentists-quickstart/agents/doc-planner.md
+cat /workspaces/turbo-flow-claude/agents/doc-planner.md
+```
+
+## Management Commands
+
+### Create and Delete Workspace
+```bash
+# Create workspace
+devpod up https://github.com/marcuspat/turbo-flow-claude --ide vscode
+
+# Delete workspace completely
+devpod delete turbo-flow-claude --force
+
+# Force delete if needed
+devpod delete turbo-flow-claude --force
+```
+
+### DevPod Management
+```bash
+# List workspaces
+devpod list
+
+# SSH into workspace
+devpod ssh turbo-flow-claude
+
+# Stop workspace (preserves everything, stops billing for compute)
+devpod stop turbo-flow-claude
+
+# Resume workspace
+devpod up turbo-flow-claude --ide vscode
 ```
 
 ## 🚀 Complete Prompting Guide - Maximize Your Agent Hivemind
@@ -91,7 +212,7 @@ Always include this in your prompts to maximize agent effectiveness:
 
 #### Example 1: Full Project Development with Visualizations
 ```
-"I need to build a REST API for a todo application. Look in /workspaces/agentists-quickstart/agents/ and:
+"I need to build a REST API for a todo application. Look in /workspaces/turbo-flow-claude/agents/ and:
 1. Identify all subagents that could be useful for this task
 2. Create a complete development plan with visualizations
 3. Break down the plans into many SVG visualizations that are simple and explainable
@@ -122,7 +243,7 @@ Always include this in your prompts to maximize agent effectiveness:
 
 #### Example 4: Infrastructure Research & Implementation
 ```
-"Draft detailed research into using rackspace spot H100-enabled servers to spawn a self hosted LLM service on rackspace spot compute platform using kubernetes. Put the output into research/rackspace folder. Draw information from youtube transcripts (tools/youtube-transcript-api), github repos, blog posts, and any web-accessible source. Draft detailed instructions to create the kubernetes manifests to serve the likes of qwen3 coder, kimi k2, and other state of the art models. Remember the current date is August 7, 2025. Spawn 5 agents to work on this process concurrently. Use the available MCP servers to conduct this research. Keep iterating until a clear path to implementation exists. Include cost analysis on a per 1 million token basis based on a H100 bid price of $0.71/hr."
+"Draft detailed research into using rackspace spot H100-enabled servers to spawn a self hosted LLM service on rackspace spot compute platform using kubernetes. Put the output into research/rackspace folder. Draw information from youtube transcripts (tools/youtube-transcript-api), github repos, blog posts, and any web-accessible source. Draft detailed instructions to create the kubernetes manifests to serve the likes of qwen3 coder, kimi k2, and other state of the art models. Remember the current date is August 22, 2025. Spawn 5 agents to work on this process concurrently. Use the available MCP servers to conduct this research. Keep iterating until a clear path to implementation exists. Include cost analysis on a per 1 million token basis based on a H100 bid price of $0.71/hr."
 ```
 
 #### Example 5: Creative Animation Project with Visual Verification
@@ -132,7 +253,7 @@ Always include this in your prompts to maximize agent effectiveness:
 
 #### Example 6: Multi-Agent Research Coordination
 ```
-"I need to research Kubernetes LLM serving, cost optimization, and deployment patterns. Current date is August 7, 2025.
+"I need to research Kubernetes LLM serving, cost optimization, and deployment patterns. Current date is August 22, 2025.
 - Spawn specialized agents for: Infrastructure (kimi k2), Cost analysis (Triton), GPU optimization ($0.71/hr H100 spot)
 - Create parallel deployment strategies using available MCP servers
 - Keep iterating until implementation path is clear
@@ -183,7 +304,7 @@ Use CC (Claude Code) for implementing changes"
 
 #### Deep Research Pattern
 ```
-"Research the best approach for implementing real-time collaborative editing. Current date is August 7, 2025.
+"Research the best approach for implementing real-time collaborative editing. Current date is August 22, 2025.
 1. Search all web-accessible resources from the last 2 years
 2. Analyze YouTube video transcripts for 'collaborative editing implementation'
 3. Study GitHub repos using CRDTs or OT algorithms
@@ -228,7 +349,7 @@ Feed MCP into Claude prompts for enhanced context"
 #### Goal-Driven Iteration with Fallbacks
 ```
 "End goal: Production-ready authentication system
-Current date: August 7, 2025
+Current date: August 22, 2025
 1. Define end result and success criteria (tests, security, performance)
 2. Start with TDD - write comprehensive test suite
 3. Implement iteratively until all tests pass
@@ -244,7 +365,7 @@ Current date: August 7, 2025
 
 ### Key Prompting Principles
 
-1. **Always specify the current date** - "Remember the current date is August 7, 2025"
+1. **Always specify the current date** - "Remember the current date is August 22, 2025"
 2. **Define clear end goals** - "Define the end result" - Agents work better with specific targets
 3. **Use iterative refinement** - "Keep iterating until [specific condition]" - "Iterate until goal"
 4. **Leverage visual verification** - "Install and use playwright for screenshots" - GUI testing
@@ -260,354 +381,12 @@ Current date: August 7, 2025
 14. **Use CC for more tasks** - Leverage Claude Code for implementation
 15. **Search all web-accessible resources** - YouTube, GitHub, blogs, etc.
 
-### Advanced Agent Coordination Patterns
-
-#### Parallel Agent Spawning
-```
-"Spawn 5 agents to work on this process concurrently"
-"Spawn 3 agents to work on this project in parallel"
-"Spawn specialized agents for different aspects simultaneously"
-```
-
-#### Iterative Refinement with Research Triggers
-```
-"Keep iterating until a clear path to implementation exists"
-"Keep iterating until the animation is smooth and will reliably work on mobile devices"
-"If stuck, do deep research using YouTube transcripts, GitHub repos, and blog posts"
-"Iterate until goal is achieved"
-```
-
-#### Resource Utilization
-```
-"Use the available MCP servers to conduct this research"
-"Draw information from youtube transcripts (tools/youtube-transcript-api), github repos, blog posts"
-"Search all web-accessible sources from the last 2 years"
-"Analyze code for patterns and desired results"
-```
-
-### Recursion Examples
-```
-"Use recursive thinking to solve this problem"
-"If you hit a wall, recurse deeper into the sub-problems"
-"Break down recursively until you find atomic, solvable units"
-"Apply recursive problem-solving to each component"
-```
-
-### The Power of Visualization
-```
-"Break down all of the plans into many many visualizations"
-"Create simple SVG visualizations that are extremely explainable"
-"Visualizations should be understandable by a human being"
-"That is your ultimate goal - human-understandable visualizations"
-```
-
-## Task Template for Maximum Agent Effectiveness
-
-Use this template to structure complex requests for optimal agent coordination:
-
-```markdown
-# Task Overview
-[Provide a clear, concise description of what you want to accomplish]
-
-## Objective
-[State the specific end goal or deliverable]
-
-## Context
-[Include any relevant background information, constraints, or requirements]
-- Current date: [Always include this]
-- Technology stack: [List relevant technologies]
-- Constraints: [Time, budget, technical limitations]
-
-## Steps to Complete
-1. [First major step or phase]
-   - [Specific sub-task or consideration]
-   - [Any relevant details]
-   - [Which agents might be best for this]
-2. [Second major step or phase]
-   - [Specific sub-task or consideration]
-   - [Any relevant details]
-   - [Integration points with other steps]
-3. [Continue with additional steps as needed]
-
-## Input Materials
-[List any documents, data, or resources that should be referenced]
-- Resource 1: [Description and location]
-- Resource 2: [GitHub repo, YouTube video, blog post URL]
-- Resource 3: [Folder path in workspace]
-
-## Expected Output Format
-[Describe how you want the final result structured]
-- Format type (report, code, analysis, visualization)
-- Length/scope expectations
-- Any specific sections or components needed
-- Where outputs should be saved
-
-## Success Criteria
-[Define what constitutes a successful completion]
-- [ ] All tests pass (if applicable)
-- [ ] Visual verification complete (playwright screenshots)
-- [ ] Performance benchmarks met
-- [ ] Documentation complete
-- [ ] Code review passed
-
-## Additional Guidelines
-- [Any specific tone, style, or approach preferences]
-- [Constraints or limitations to observe]
-- [Special considerations or edge cases]
-- [Whether to use swarm or hivemind approach]
-- [How many agents to spawn concurrently]
-
-## Questions to Address
-1. [Key question that needs answering]
-2. [Another important question]
-3. [Technical decisions that need research]
-
-## Iteration Instructions
-- [How many rounds of refinement needed]
-- [Checkpoints for review]
-- [When to do deep research if stuck]
-- [Exit criteria for iterations]
-```
-
-### Tips for Using This Template Effectively
-
-1. **Be specific**: The more detailed your instructions, the better Claude Flow can break down and execute the workflow
-2. **Include examples**: If you have specific formats or styles in mind, provide examples
-3. **Prioritize tasks**: If some steps are more critical than others, indicate their priority
-4. **Set checkpoints**: For complex workflows, define points where you want to review progress
-5. **Specify iterations**: If you want multiple drafts or rounds of refinement, state this clearly
-6. **Include agent hints**: Suggest which types of agents might be useful for different phases
-7. **Define research triggers**: Specify when agents should do deep research vs. implementation
-8. **Set visual verification**: Include playwright screenshot requirements where applicable
-9. **Specify concurrency**: Indicate how many agents should work in parallel
-10. **Include fallback strategies**: What to do if the primary approach doesn't work
-
-### Example Using the Template
-
-```markdown
-# Task Overview
-Build a real-time collaborative markdown editor with syntax highlighting
-
-## Objective
-Create a web-based editor where multiple users can edit markdown simultaneously with live preview
-
-## Context
-- Current date: August 7, 2025
-- Technology stack: React, WebSockets, Monaco Editor
-- Constraints: Must handle 50 concurrent users, <100ms latency
-
-## Steps to Complete
-1. Research and architecture design
-   - Study existing collaborative editing solutions
-   - Choose between CRDTs or Operational Transform
-   - Design the system architecture
-   - Spawn 3 research agents to analyze different approaches
-2. Implementation phase
-   - Set up WebSocket server
-   - Implement collaborative algorithm
-   - Build React frontend
-   - Integrate Monaco editor
-   - Use TDD throughout
-3. Testing and optimization
-   - Write comprehensive tests
-   - Use playwright for visual testing
-   - Performance optimization
-   - Load testing with 50 concurrent users
-
-## Input Materials
-- Resource 1: YouTube videos on "CRDT implementation 2024-2025"
-- Resource 2: https://github.com/yjs/yjs (example implementation)
-- Resource 3: /specs/editor-requirements.md
-
-## Expected Output Format
-- Working application in /collaborative-editor
-- Test suite with >90% coverage
-- Performance benchmarks document
-- README with setup instructions
-- Architecture diagram in SVG
-
-## Success Criteria
-- [ ] 50 concurrent users supported
-- [ ] <100ms sync latency
-- [ ] All tests passing
-- [ ] Playwright visual tests verified
-- [ ] No data loss during concurrent edits
-
-## Additional Guidelines
-- Use hivemind approach for coordinated implementation
-- Spawn 5 agents for parallel development
-- If stuck, do deep research before trying alternatives
-- Focus on reliability over features
-
-## Questions to Address
-1. CRDT vs OT: Which is better for our use case?
-2. How to handle conflict resolution elegantly?
-3. What's the best way to optimize for 50 users?
-
-## Iteration Instructions
-- Run load tests after each major feature
-- Review checkpoint after architecture design
-- Iterate on performance until <100ms achieved
-- Do deep research if any test consistently fails
-```
-
-## 🌊 Claude Flow Integration
-
-### Quick Claude Flow Commands
-```bash
-# Initialize Claude Flow with enhanced MCP setup (auto-configures permissions!)
-npx claude-flow@alpha init --force
-
-# Quick AI coordination (recommended for most tasks)
-npx claude-flow@alpha swarm "build me a REST API"
-
-# Launch the full hive-mind system (for complex projects)
-npx claude-flow@alpha hive-mind wizard
-npx claude-flow@alpha hive-mind spawn "build enterprise system" --claude
-
-# Continue previous work
-npx claude-flow@alpha hive-mind resume session-xxxxx-xxxxx
-npx claude-flow@alpha memory query --recent --limit 5
-```
-
-### 🤔 Swarm vs Hive-Mind: Which to Use?
-| Feature | swarm Command | hive-mind Command |
-|---------|---------------|-------------------|
-| Best For | Quick tasks, single objectives | Complex projects, persistent sessions |
-| Setup | Instant - no configuration needed | Interactive wizard setup |
-| Session | Temporary coordination | Persistent with resume capability |
-| Memory | Task-scoped | Project-wide with SQLite storage |
-| Agents | Auto-spawned for task | Manual control with specializations |
-| Use When | "Build X", "Fix Y", "Analyze Z" | Multi-feature projects, team coordination |
-
-**Quick Rule**: Start with `swarm` for most tasks. Use `hive-mind` when you need persistent sessions or complex multi-agent coordination.
-
-### 🧠 Neural Network Capabilities
-```bash
-# Train coordination patterns
-npx claude-flow@alpha neural train --pattern coordination --data "workflow.json"
-
-# Real-time predictions
-npx claude-flow@alpha neural predict --model task-optimizer --input "current-state.json"
-
-# Analyze cognitive behavior
-npx claude-flow@alpha cognitive analyze --behavior "development-patterns"
-```
-
-### 🪝 Advanced Hooks System
-Automated workflow enhancement with pre/post operation hooks:
-
-```bash
-# Manual hook execution
-npx claude-flow hooks pre-task --description "Build REST API" --auto-spawn-agents
-npx claude-flow hooks post-edit --file "src/api.js" --format --train-neural
-npx claude-flow hooks session-end --generate-summary --persist-state
-
-# Fix hook variable interpolation (if needed)
-npx claude-flow@alpha fix-hook-variables
-```
-
-### 📊 GitHub Integration Modes
-```bash
-# Six specialized GitHub coordination modes
-npx claude-flow@alpha github gh-coordinator analyze --analysis-type security
-npx claude-flow@alpha github pr-manager review --multi-reviewer --ai-powered
-npx claude-flow@alpha github release-manager coord --version 2.0.0 --auto-changelog
-npx claude-flow@alpha github repo-architect optimize --structure-analysis
-npx claude-flow@alpha github issue-tracker manage --project-coordination
-npx claude-flow@alpha github sync-coordinator align --multi-package
-```
-
-### 🛡️ Security Features
-```bash
-# Security scanning and monitoring
-npx claude-flow security scan --deep --report
-npx claude-flow security monitor --dashboard
-npx claude-flow security audit --full-trace
-
-# Secure agent creation with resource limits
-npx claude-flow daa agent-create \
-  --security-level high \
-  --resource-limits "cpu:50%,memory:2GB" \
-  --sandbox enabled
-```
-
-### 📊 Performance Metrics
-- **84.8% SWE-Bench Solve Rate**: Superior problem-solving through hive-mind coordination
-- **32.3% Token Reduction**: Efficient task breakdown reduces costs significantly
-- **2.8-4.4x Speed Improvement**: Parallel coordination maximizes throughput
-- **87 MCP Tools**: Most comprehensive AI tool suite available
-
-### 🔄 Workflow Orchestration
-```bash
-# Advanced workflow automation
-npx claude-flow@alpha workflow create --name "CI/CD Pipeline" --parallel
-npx claude-flow@alpha batch process --items "test,build,deploy" --concurrent
-npx claude-flow@alpha pipeline create --config advanced-deployment.json
-```
-
-### 💾 Advanced Memory Features
-```bash
-# Cross-session memory management with SQLite persistence
-npx claude-flow@alpha memory store "project-context" "Full-stack app requirements"
-npx claude-flow@alpha memory query "authentication" --namespace sparc
-npx claude-flow@alpha memory stats  # Shows 12 specialized tables
-npx claude-flow@alpha memory export backup.json --namespace default
-npx claude-flow@alpha memory import project-memory.json
-```
-
-### 🎯 SPARC Development Mode
-```bash
-# Advanced SPARC development with neural enhancement
-npx claude-flow@alpha sparc mode --type "neural-tdd" --auto-learn
-npx claude-flow@alpha sparc workflow --phases "all" --ai-guided --memory-enhanced
-```
-
-### 🏗️ Architecture Overview
-```
-┌─────────────────────────────────────────────────────────┐
-│                    👑 Queen Agent                       │
-│              (Master Coordinator)                       │
-├─────────────────────────────────────────────────────────┤
-│  🏗️ Architect │ 💻 Coder │ 🧪 Tester │ 🔍 Research │ 🛡️ Security │
-├─────────────────────────────────────────────────────────┤
-│           🧠 Neural Pattern Recognition Layer           │
-├─────────────────────────────────────────────────────────┤
-│              💾 Distributed Memory System               │
-├─────────────────────────────────────────────────────────┤
-│            ⚡ 87 MCP Tools Integration Layer            │
-├─────────────────────────────────────────────────────────┤
-│              🛡️ Claude Code Integration                 │
-└─────────────────────────────────────────────────────────┘
-```
-
-### Recommended Droplet Sizes
-```bash
-# Before creating workspace, configure size:
-
-# 2GB RAM ($12/month) - Good for most development
-devpod provider update digitalocean --option DROPLET_SIZE=s-2vcpu-2gb
-
-# 4GB RAM ($24/month) - For memory-intensive work
-devpod provider update digitalocean --option DROPLET_SIZE=s-2vcpu-4gb
-
-# Current default: 8GB RAM ($48/month)
-```
-
-### Save Money When Not Working
-```bash
-# Stop workspace (preserves everything, stops billing for compute)
-devpod stop agentists-quickstart
-
-# Resume workspace
-devpod up agentists-quickstart --ide vscode
-```
-
 ## File Structure
 ```
-devpods/claude-code/
+devpods/
 ├── devcontainer.json      # Container configuration
 ├── setup.sh              # Automated setup script
+├── post-setup.sh         # Verification script (runs after VS Code connects)
 ├── tmux-workspace.sh     # Tmux session creator
 ├── README.md            # This file
 └── additional-agents/   # Custom agents directory
@@ -618,7 +397,7 @@ devpods/claude-code/
 ## After Setup
 Your workspace will have:
 ```
-/workspaces/agentists-quickstart/
+/workspaces/turbo-flow-claude/
 ├── agents/                    # 600+ AI agents
 │   ├── doc-planner.md
 │   ├── microtask-breakdown.md
@@ -628,21 +407,7 @@ Your workspace will have:
 └── [your project files]
 ```
 
-## Key Commands
-
-### DevPod Management
-```bash
-# List workspaces
-devpod list
-
-# SSH into workspace
-devpod ssh agentists-quickstart
-
-# Delete workspace completely
-devpod delete agentists-quickstart --force
-```
-
-### Tmux Navigation
+## Tmux Navigation
 - `Ctrl+b` then `0-3`: Switch between windows
 - `Ctrl+b` then `n`: Next window
 - `Ctrl+b` then `p`: Previous window
@@ -653,10 +418,10 @@ devpod delete agentists-quickstart --force
 ```bash
 # Quick system check
 echo "=== SYSTEM CHECK ==="
-echo "Agents: $(ls -1 /workspaces/agentists-quickstart/agents/*.md 2>/dev/null | wc -l)"
+echo "Agents: $(ls -1 /workspaces/turbo-flow-claude/agents/*.md 2>/dev/null | wc -l)"
 echo "Claude-code: $(which claude-code && echo '✓ Installed' || echo '✗ Missing')"
 echo "Claude-usage: $(which claude-usage-cli && echo '✓ Installed' || echo '✗ Missing')"
-echo "Claude-flow: $(ls /workspaces/agentists-quickstart/claude-flow 2>/dev/null && echo '✓ Installed' || echo '✗ Missing')"
+echo "Claude-flow: $(ls /workspaces/turbo-flow-claude/claude-flow 2>/dev/null && echo '✓ Installed' || echo '✗ Missing')"
 echo "Tmux: $(which tmux && echo '✓ Installed' || echo '✗ Missing')"
 ```
 
@@ -686,24 +451,17 @@ find ~/.devpod -type d -exec chmod 755 {} \; && \
 find ~/.devpod -type f -exec chmod 644 {} \; && \
 find ~/.devpod -name "*provider*" -type f -path "*/binaries/*" -exec chmod +x {} \; && \
 find ~/.devpod -name "devpod*" -type f -exec chmod +x {} \;
-
-# Individual commands if needed:
-# Fix ownership
-sudo chown -R $(whoami):staff ~/.devpod
-
-# Fix specific DigitalOcean provider
-chmod +x ~/.devpod/contexts/default/providers/digitalocean/binaries/do_provider/*
 ```
 
 ### Connection Issues
 1. Close VSCode completely: `killall "Code"`
-2. Retry: `devpod up agentists-quickstart --ide vscode`
+2. Retry: `devpod up turbo-flow-claude --ide vscode`
 
 ### Verify Agent Installation
 ```bash
 # Check specific agents exist
-ls -la /workspaces/agentists-quickstart/agents/doc-planner.md
-ls -la /workspaces/agentists-quickstart/agents/microtask-breakdown.md
+ls -la /workspaces/turbo-flow-claude/agents/doc-planner.md
+ls -la /workspaces/turbo-flow-claude/agents/microtask-breakdown.md
 ```
 
 ## Updates and Maintenance
@@ -711,51 +469,39 @@ ls -la /workspaces/agentists-quickstart/agents/microtask-breakdown.md
 To update the setup (new agents, tools, etc.):
 1. Modify files in this directory
 2. Commit and push to repository
-3. Recreate workspace to apply changes
-
-### Basic Agent Commands
+3. Delete and recreate workspace to apply changes:
 ```bash
-# List all available agents
-ls /workspaces/agentists-quickstart/agents/*.md | wc -l
-
-# Search for specific agents
-ls /workspaces/agentists-quickstart/agents/*test*.md
-
-# Load a specific agent
-cat /workspaces/agentists-quickstart/agents/doc-planner.md
+devpod delete turbo-flow-claude --force
+devpod up https://github.com/marcuspat/turbo-flow-claude --ide vscode
 ```
 
-### Agent Categories Available
-The agents cover a wide range of capabilities including:
-- **Development**: Code review, test generation, debugging, refactoring
-- **Documentation**: Technical writing, API docs, user guides
-- **Architecture**: System design, database modeling, scalability planning
-- **Security**: Vulnerability scanning, penetration testing, compliance
-- **Performance**: Optimization, profiling, bottleneck analysis
-- **Project Management**: Planning, estimation, risk assessment
-- **Data Science**: Analysis, visualization, ML model development
-- **DevOps**: CI/CD, infrastructure as code, monitoring
-- **Business Strategy**: Market analysis, competitive intelligence, growth planning
-- **Creative**: Content creation, brainstorming, innovation workshops
-- **And 500+ more specialized roles**
+### Recommended Droplet Sizes
+```bash
+# Before creating workspace, configure size:
+
+# 2GB RAM ($12/month) - Good for most development
+devpod provider update digitalocean --option DROPLET_SIZE=s-2vcpu-2gb
+
+# 4GB RAM ($24/month) - For memory-intensive work
+devpod provider update digitalocean --option DROPLET_SIZE=s-2vcpu-4gb
+
+# Current default: 8GB RAM ($48/month)
+```
+
+### Save Money When Not Working
+```bash
+# Stop workspace (preserves everything, stops billing for compute)
+devpod stop turbo-flow-claude
+
+# Resume workspace
+devpod up turbo-flow-claude --ide vscode
+```
 
 ## Resources
 - [DevPod Documentation](https://devpod.sh/docs)
 - [Claude Flow SPARC](https://github.com/ruvnet/claude-flow)
 - [610ClaudeSubagents Repository](https://github.com/ChrisRoyse/610ClaudeSubagents) - The source of 600+ specialized Claude agents
 - [Claude Usage Monitor CLI](https://github.com/jedarden/claude-usage-monitor-cli) - Track your Claude API usage (Note: We use the npm version `claude-usage-cli`)
-
-## Agent Categories (from 610ClaudeSubagents)
-The agents cover a wide range of capabilities including:
-- **Development**: Code review, test generation, debugging, refactoring
-- **Documentation**: Technical writing, API docs, user guides
-- **Architecture**: System design, database modeling, scalability planning
-- **Security**: Vulnerability scanning, penetration testing, compliance
-- **Performance**: Optimization, profiling, bottleneck analysis
-- **Project Management**: Planning, estimation, risk assessment
-- **Data Science**: Analysis, visualization, ML model development
-- **DevOps**: CI/CD, infrastructure as code, monitoring
-- **And 600+ more specialized roles**
 
 ---
 
