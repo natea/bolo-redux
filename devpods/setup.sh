@@ -48,7 +48,7 @@ cat << 'HOOKS_EOF' > .claude/settings.json
   "hooks": {
     "sessionStartHook": {
       "command": "bash",
-      "args": ["-c", "echo '=== 📋 LOADING CLAUDE CONTEXT ===' && if [ -f 'CLAUDE.md' ]; then echo '🤖 Claude Rules:' && cat CLAUDE.md && echo -e '\\n'; fi && if [ -f 'agents/doc-planner.md' ]; then echo '📋 Doc Planner Agent:' && cat agents/doc-planner.md && echo -e '\\n'; fi && if [ -f 'agents/microtask-breakdown.md' ]; then echo '🔧 Microtask Breakdown Agent:' && cat agents/microtask-breakdown.md && echo -e '\\n'; fi && echo '=== ✅ CONTEXT LOADED ===\\n'"],
+      "args": ["-c", "echo '=== 📋 LOADING CLAUDE CONTEXT ===' && if [ -f 'CLAUDE.md' ]; then echo '🤖 Claude Rules:' && cat CLAUDE.md && echo -e '\\n'; fi && if [ -f 'agents/doc-planner.md' ]; then echo '📋 Doc Planner Agent:' && cat agents/doc-planner.md && echo -e '\\n'; fi && if [ -f 'agents/microtask-breakdown.md' ]; then echo '🔧 Microtask Breakdown Agent:' && cat agents/microtask-breakdown.md && echo -e '\\n'; fi && if [ -d 'agents' ]; then agent_count=$(ls agents/*.md 2>/dev/null | wc -l); echo \"=== 🤖 AGENT LIBRARY AVAILABLE ===\"; echo \"📚 ${agent_count} specialized agents ready for deployment\"; echo \"💡 Use: 'ls agents/' or 'find agents/ -name '*keyword*' to discover relevant agents\"; echo \"⚡ Claude can browse and select the best agents for each task\"; echo ''; fi && echo '=== ✅ CONTEXT LOADED ===\\n'"],
       "alwaysRun": true
     },
     "postEditHook": {
