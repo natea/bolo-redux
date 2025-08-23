@@ -920,14 +920,12 @@ devpod stop turbo-flow-claude
 # ▶️ Resume workspace
 devpod up turbo-flow-claude --ide vscode
 ```
-
 ## 📚 Resources
 - 📖 [DevPod Documentation](https://devpod.sh/docs)
 - ⚡ [Claude Flow SPARC](https://github.com/ruvnet/claude-flow) - by Reuven Cohen.
 - 🤖 [610ClaudeSubagents Repository](https://github.com/ChrisRoyse/610ClaudeSubagents) - The source of 600+ specialized Claude agents by Christopher Royse.
-- 📊 [Claude Usage Monitor CLI](https://github.com/jedarden/claude-usage-monitor-cli) - Track your Claude API usage (Note: We use the npm version `claude-usage-cli`)
-- 🤖 [Terminal Jarvis](https://github.com/BA-CalderonMorales/terminal-jarvis) - AI-powered terminal assistant for enhanced development workflows. By 
-Brandon Calderon-Morales
+- 📊 [Claude Code Usage Monitor](https://github.com/Maciek-roboblog/Claude-Code-Usage-Monitor) - Advanced Claude usage monitor with ML-based predictions and Rich UI by Maciek-roboblog.
+- 🤖 [Terminal Jarvis](https://github.com/BA-CalderonMorales/terminal-jarvis) - AI-powered terminal assistant for enhanced development workflows. By Brandon Calderon-Morales
 
 ---
 
