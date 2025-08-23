@@ -15,7 +15,6 @@
         "AGENTS_DIR": "${containerWorkspaceFolder}/agents"
     },
     "postCreateCommand": "sudo apt-get update && sudo apt-get install -y tmux htop && chmod +x ${containerWorkspaceFolder}/devpods/*.sh 2>/dev/null || true && if [ -f ${containerWorkspaceFolder}/devpods/setup.sh ]; then ${containerWorkspaceFolder}/devpods/setup.sh; fi",
-    "postStartCommand": "chmod +x ${containerWorkspaceFolder}/devpods/*.sh 2>/dev/null || true && if [ -f ${containerWorkspaceFolder}/devpods/post-setup.sh ]; then ${containerWorkspaceFolder}/devpods/post-setup.sh; fi",
     "customizations": {
         "vscode": {
             "extensions": [
@@ -24,15 +23,7 @@
                 "github.copilot",
                 "github.copilot-chat"
             ],
-            "settings": {
-                "terminal.integrated.profiles.linux": {
-                    "tmux-workspace": {
-                        "path": "/bin/bash",
-                        "args": ["-c", "chmod +x ${containerWorkspaceFolder}/devpods/tmux-workspace.sh 2>/dev/null || true; if [ -f ${containerWorkspaceFolder}/devpods/tmux-workspace.sh ]; then ${containerWorkspaceFolder}/devpods/tmux-workspace.sh; else bash; fi"]
-                    }
-                },
-                "terminal.integrated.defaultProfile.linux": "tmux-workspace"
-            }
+            "settings": {}
         }
     }
 }
