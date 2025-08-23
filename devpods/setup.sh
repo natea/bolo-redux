@@ -44,6 +44,10 @@ if [ ! -f "package.json" ]; then
   npm init -y
 fi
 
+# Fix TypeScript module configuration
+echo "🔧 Fixing TypeScript module configuration..."
+npm pkg set type="module"
+
 # Install Playwright (REQUIRED by CLAUDE.md for visual verification)
 echo "🧪 Installing Playwright for visual verification..."
 npm install -D playwright
@@ -54,9 +58,29 @@ npx playwright install-deps
 echo "🔧 Installing TypeScript and development tools..."
 npm install -D typescript @types/node
 
-# Create TypeScript configuration
-echo "⚙️ Creating TypeScript configuration..."
-npx tsc --init
+# Update tsconfig.json for ES modules
+echo "⚙️ Updating TypeScript configuration for ES modules..."
+cat << 'EOF' > tsconfig.json
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "strict": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true
+  },
+  "include": ["src/**/*", "tests/**/*"],
+  "exclude": ["node_modules", "dist"]
+}
+EOF
 
 # Create Playwright configuration
 echo "🧪 Creating Playwright configuration..."
@@ -168,6 +192,7 @@ fi
 
 echo "Setup completed successfully!"
 echo "🎯 Environment is now 100% production-ready!"
-echo "✅ TypeScript configuration created"
-echo "✅ Playwright tests configured"
+echo "✅ TypeScript ES module configuration fixed"
+echo "✅ Playwright tests configured with proper imports"
 echo "✅ DSP alias configured"
+echo "✅ Terminal Jarvis installed"
