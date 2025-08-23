@@ -17,7 +17,11 @@ npm install -g claude-usage-cli
 # Install uv package manager
 echo "Installing uv package manager..."
 curl -LsSf https://astral.sh/uv/install.sh | sh
-source $HOME/.cargo/env
+if [ -f "$HOME/.cargo/env" ]; then
+    source "$HOME/.cargo/env"
+else
+    export PATH="$HOME/.cargo/bin:$PATH"
+fi
 
 # Install Claude Monitor using uv
 echo "Installing Claude Code Usage Monitor..."
