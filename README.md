@@ -850,6 +850,17 @@ echo "Claude-usage: $(which claude-usage-cli && echo '✓ Installed' || echo '�
 echo "Claude-flow: $(ls /workspaces/turbo-flow-claude/claude-flow 2>/dev/null && echo '✓ Installed' || echo '✗ Missing')"
 echo "Tmux: $(which tmux && echo '✓ Installed' || echo '✗ Missing')"
 ```
+## 🔥 **DSP Alias**
+
+Quick shortcut for `claude --dangerously-skip-permissions`
+
+### **Usage:**
+```bash
+# Instead of:
+claude --dangerously-skip-permissions
+
+# Just type:
+dsp
 
 ## 🏗️ Architecture Overview
 ```
