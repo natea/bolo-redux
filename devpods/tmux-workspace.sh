@@ -1,9 +1,14 @@
 #!/bin/bash
+set -ex
+
+# Get the directory where this script is located
+readonly DEVPOD_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 echo "=== Starting TMux Workspace ==="
 echo "WORKSPACE_FOLDER: $WORKSPACE_FOLDER"
 echo "DEVPOD_WORKSPACE_FOLDER: $DEVPOD_WORKSPACE_FOLDER"
 echo "AGENTS_DIR: $AGENTS_DIR"
+echo "DEVPOD_DIR: $DEVPOD_DIR"
 
 # Ensure we're in the workspace directory
 cd "$WORKSPACE_FOLDER"
@@ -44,6 +49,7 @@ fi
 tmux send-keys -t workspace:0 "echo '=== Claude Window 1 Ready ==='" C-m
 tmux send-keys -t workspace:0 "echo 'Workspace: $WORKSPACE_FOLDER'" C-m
 tmux send-keys -t workspace:0 "echo 'Agents: $AGENTS_DIR'" C-m
+tmux send-keys -t workspace:0 "echo 'DevPod Dir: $DEVPOD_DIR'" C-m
 tmux send-keys -t workspace:0 "echo ''" C-m
 tmux send-keys -t workspace:0 "echo 'Load mandatory agents with:'" C-m
 tmux send-keys -t workspace:0 "echo 'cat \$AGENTS_DIR/doc-planner.md'" C-m
@@ -51,6 +57,7 @@ tmux send-keys -t workspace:0 "echo 'cat \$AGENTS_DIR/microtask-breakdown.md'" C
 
 tmux send-keys -t workspace:1 "echo '=== Claude Window 2 Ready ==='" C-m
 tmux send-keys -t workspace:1 "echo 'Workspace: $WORKSPACE_FOLDER'" C-m
+tmux send-keys -t workspace:1 "echo 'DevPod Dir: $DEVPOD_DIR'" C-m
 
 # Select the first window
 tmux select-window -t workspace:0
