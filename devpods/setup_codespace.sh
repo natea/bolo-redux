@@ -17,6 +17,7 @@ run_script_with_yes() {
     
     if [[ -f "$script_path" ]]; then
         echo "🔧 Running $script_name..."
+        cd "$SCRIPT_DIR"  # Change to script directory before running
         # Use 'yes' command to automatically answer prompts with 'y'
         # Pipe to the script and also pass -y flag if supported
         yes | bash "$script_path" -y 2>/dev/null || bash "$script_path" -y || yes | bash "$script_path"
