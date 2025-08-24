@@ -18,14 +18,15 @@ cp -r /path/to/turbo-flow-claude/devpods ./
 
 # Make all scripts executable
 chmod +x devpods/*.sh
+
+# Run all 3 scripts in order
+
+./setup.sh && post-setup.sh && tmux-workspace.sh
+
 ```
 
-**Step 2: Run the automated setup script**
-```bash
-./devpods/setup_codespace.sh
-```
-**What `setup_codespace.sh` does:**
-- Automatically runs `setup.sh`, `post-setup.sh`, and `tmux-workspace.sh`
+
+- Run `setup.sh`, `post-setup.sh`, and `tmux-workspace.sh`
 - Handles all interactive prompts with automatic "yes" responses
 - Provides clear progress feedback throughout the process
 - Stops on errors with helpful messages
