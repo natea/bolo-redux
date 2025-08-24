@@ -35,7 +35,7 @@
 - 🎯 **Recursive Problem Solving** - Break complex problems to atomic units
 - 🔄 **Iterate Until Success** - Never give up until goal achieved
 - 🔍 **Deep Research Protocol** - Auto-search YouTube, GitHub, blogs when stuck
-- 📅 **Date Context Integration** - Current date: Friday, August 22, 2025
+- 📅 **Date Context Integration** - Current date: Saturday, August 23, 2025
 
 ---
 
@@ -70,89 +70,6 @@ echo "$(grep -A 5 'MANDATORY.*Doc-Planner' /workspaces/turbo-flow-claude/FEEDCLA
 echo "$(grep -A 10 'Agent Count Rules' /workspaces/turbo-flow-claude/FEEDCLAUDE.md)"
 echo "$(grep -A 15 'Correct Execution Pattern' /workspaces/turbo-flow-claude/FEEDCLAUDE.md)"
 ```
-
-### 📝 **Example Usage in Prompts:**
-
-#### 🎯 **Method 1: Direct Context Injection**
-```
-"I need to build a React dashboard. First, let me provide context from FEEDCLAUDE.md:
-
-$(cat /workspaces/turbo-flow-claude/FEEDCLAUDE.md)
-
-Now, using these instructions:
-1. Load doc-planner and microtask-breakdown agents
-2. Use concurrent execution patterns
-3. Follow the master prompting pattern
-4. Implement with Playwright visual verification"
-```
-
-#### 🚀 **Method 2: Section-Specific Context**
-```
-"Build an API with authentication. Follow these FEEDCLAUDE.md patterns:
-
-MANDATORY AGENTS:
-- Always start with doc-planner and microtask-breakdown
-- Load from $WORKSPACE_FOLDER/agents/
-
-EXECUTION PATTERN:
-- Batch ALL operations in single messages
-- Use Task tool for parallel agent spawning
-- Follow agent coordination protocol
-
-MASTER PATTERN:
-- Identify all useful subagents
-- Utilize claude-flow hivemind for maximum effectiveness"
-```
-
-#### 🎨 **Method 3: Progressive Context Building**
-```
-"Phase 1: Load essential context"
-$(grep -A 10 "CRITICAL EXECUTION RULES" /workspaces/turbo-flow-claude/FEEDCLAUDE.md)
-
-"Phase 2: Apply to my task - create a mobile app with..."
-[Your specific requirements]
-
-"Phase 3: Execute with patterns from FEEDCLAUDE.md"
-[Implementation following the loaded patterns]
-```
-
-### 🔧 **Integration Tips:**
-
-#### ✅ **Best Practices:**
-- 📋 **Always include mandatory agent rules** when starting new projects
-- ⚡ **Use concurrent execution patterns** for complex tasks
-- 🎯 **Reference master prompting pattern** for agent coordination
-- 📊 **Include progress format** for tracking
-- 🧪 **Add Playwright requirements** for frontend work
-
-#### 🎯 **Quick Commands for Common Scenarios:**
-```bash
-# 🚀 Full development project context
-echo "Context: $(grep -A 20 'MANDATORY.*Doc-Planner\|Correct Execution Pattern\|Agent Count Rules' /workspaces/turbo-flow-claude/FEEDCLAUDE.md)"
-
-# 🎨 Frontend development with visual verification
-echo "Context: $(grep -A 15 'Playwright Integration\|Visual verification' /workspaces/turbo-flow-claude/FEEDCLAUDE.md)"
-
-# 🤖 Agent coordination patterns
-echo "Context: $(grep -A 10 'Agent Coordination Protocol\|Master Prompting Pattern' /workspaces/turbo-flow-claude/FEEDCLAUDE.md)"
-
-# 📊 Progress tracking and CI protocols
-echo "Context: $(grep -A 10 'Progress Format\|CI Protocol' /workspaces/turbo-flow-claude/FEEDCLAUDE.md)"
-```
-
-### 📈 **Performance Benefits:**
-- **⚡ 6x faster execution** through concurrent patterns
-- **🎯 83% reduced context size** while maintaining full effectiveness
-- **📋 100% adherence** to mandatory development fundamentals
-- **🔄 Consistent iteration patterns** until success
-- **🧪 Visual verification** integration for all frontend work
-
-### 💡 **Pro Tips:**
-1. **🔴 Always start** with doc-planner and microtask-breakdown sections
-2. **📁 Never save to root** - include file organization rules
-3. **⚡ Batch everything** - use concurrent execution examples
-4. **📅 Include date context** - "Current date: Friday, August 22, 2025"
-5. **🔄 Iterate until success** - include persistence patterns
 
 ---
 
@@ -419,8 +336,8 @@ devpod provider test digitalocean  # or aws, azure, gcp, docker
 - ✅ **post-setup.sh** - Verification script running after VS Code connects
 - 🖥️ **tmux-workspace.sh** - Creates 4-window tmux session optimized for Claude development
 - 🤖 **additional-agents/** - Custom agents including mandatory doc-planner & microtask-breakdown
-- 📋 **FEEDCLAUDE.md** - Streamlined prompting instructions (NEW!)
-- 📝 **Enhanced CLAUDE.md** - Unified optimal configuration (UPDATED!)
+- 📋 **FEEDCLAUDE.md** - Streamlined prompting instructions
+- 📝 **Enhanced CLAUDE.md** - Unified optimal configuration
   
 ### 🎯 **Installed Features & Tools**
 - 🐳 **Docker-in-Docker** - Run containers inside your development container
@@ -428,44 +345,16 @@ devpod provider test digitalocean  # or aws, azure, gcp, docker
 - 🦀 **Rust 1.70** - Systems programming language
 - 🖥️ **tmux** - Terminal multiplexer with pre-configured workspace
 - 🤖 **Claude Code CLI** (`@anthropic-ai/claude-code`) - Official Claude development tools
-- 📊 **Advanced Claude Monitor** - ML-based usage monitoring with Rich UI (UPGRADED!)
+- 📊 **Advanced Claude Monitor** - ML-based usage monitoring with Rich UI
 - ⚡ **Claude Flow** - SPARC workflow automation with 54+ built-in agents
 - 🎯 **600+ Specialized Agents** - From 610ClaudeSubagents repository plus custom additions
-- 🧪 **Playwright** - Visual verification and screenshot automation (NEW!)
+- 🧪 **Playwright** - Visual verification and screenshot automation
 
 ### 🎨 **VSCode Extensions (Auto-installed)**
 - 🤖 **Roo Cline** - AI pair programming
 - 📝 **Gist FS** - GitHub Gist integration
 - 🧠 **GitHub Copilot** - AI code completion
 - 💬 **GitHub Copilot Chat** - AI chat interface
-
----
-
-## 🔥 Recent Major Enhancements
-
-### 🚀 **Enhanced Monitoring & Development Fundamentals**
-
-We've upgraded from basic `claude-usage-cli` to the advanced **🔍 Claude Monitor** by @Maciek-roboblog, featuring:
-- 🧠 **ML-based predictions** - Intelligent usage forecasting
-- 🎨 **Beautiful Rich terminal UI** - Enhanced developer experience
-- 📊 **Real-time analytics** - Live usage tracking
-- ⚡ **Intelligent session limit detection** - Smart limit management
-
-More significantly, we've implemented **🎯 comprehensive development methodology** where the **doc-planner** and **microtask-breakdown** agents are now **🔴 MANDATORY** for ALL work - individual tasks, swarms, and hive-minds.
-
-### 🎯 **New Development Fundamentals**
-- 🧪 **Playwright Integration** - All frontend/web development requires Playwright for screenshots and visual verification
-- 🔄 **Recursive Problem Solving** - Complex problems broken down recursively to atomic, solvable units
-- ⚡ **Iterate Until Success** - Tasks continue until goal achieved - no giving up
-- 🔍 **Deep Research Protocol** - When stuck, agents auto-search YouTube transcripts, GitHub repos, and blogs
-- 📅 **Date Context** - Current date always specified: **Friday, August 22, 2025**
-- 🤖 **Swarm vs Hive Guidance** - Clear decision tree for choosing coordination patterns
-
-### 📋 **Enhanced Configuration System**
-- ✅ **Merged CLAUDE.md** - Unified configuration from multiple sources without duplication
-- 📝 **Created FEEDCLAUDE.md** - 83% size reduction, pure instruction set for prompts
-- 📁 **File Organization Rules** - Never save to root, structured directory approach
-- ⚡ **Concurrent Execution** - All operations batched in single messages (6x faster!)
 
 ---
 
@@ -526,75 +415,74 @@ devpod up . --ide vscode
 devpod up https://github.com/username/reponame --ide vscode
 ```
 
-#### ⚙️ **Step 4: Customize for Your Project**
-Edit `.devcontainer.json` to add project-specific requirements:
-```json
-{
-  "name": "Your Project + Claude Environment",
-  "build": {
-    "dockerFile": "../Dockerfile"  // if you have a custom Dockerfile
-  },
-  "features": {
-    // Your project-specific features
-    "ghcr.io/devcontainers/features/python:1": {},
-    "ghcr.io/devcontainers/features/java:1": {}
-  },
-  "customizations": {
-    "vscode": {
-      "extensions": [
-        // Your project-specific extensions
-        "ms-python.python",
-        "redhat.java"
-      ]
-    }
-  }
-}
-```
+---
 
-### 🎯 **Which Option to Choose?**
+## 🔧 Automatic Context Loading
 
-#### 🚀 **Choose Option 1 (Standalone) if:**
-- Starting a new project
-- Want a clean, optimized development environment
-- Working on multiple projects that can benefit from Claude agents
-- Prefer a dedicated workspace for AI-enhanced development
+After setup, you'll have **automatic context loading** for Claude Flow commands:
 
-#### 🔄 **Choose Option 2 (Integration) if:**
-- Have an existing project with specific dependencies
-- Need to maintain your current Docker/container setup
-- Want to add Claude capabilities to an established workflow
-- Working in a team environment with existing standards
-
-### 💡 **Pro Tips for Both Options:**
-
-#### 🎯 **After Setup:**
+### 🎯 **Enhanced Claude Flow Commands**
 ```bash
-# Verify Claude environment is ready
-ls /workspaces/*/agents/*.md | wc -l  # Should show 600+
-
-# Load mandatory agents (ALWAYS DO THIS FIRST!)
-cat $WORKSPACE_FOLDER/agents/doc-planner.md
-cat $WORKSPACE_FOLDER/agents/microtask-breakdown.md
-
-# Check tmux workspace is running
-tmux list-sessions
+# These commands automatically load CLAUDE.md + doc-planner + microtask-breakdown
+cf-swarm "build a tic-tac-toe game"         # Swarm with full context
+cf-hive "create a REST API"                 # Hive-mind with full context  
+cf "memory stats"                           # Any Claude Flow command with context
 ```
 
-#### 📁 **File Structure After Integration:**
+### 🤖 **What Gets Loaded Automatically**
+- **📋 CLAUDE.md** - All development rules and patterns
+- **🎯 doc-planner.md** - MANDATORY planning agent (SPARC methodology)
+- **🔧 microtask-breakdown.md** - MANDATORY task decomposition agent
+- **📚 Agent Library Info** - Notification about 600+ available agents
+
+### 🔄 **Before vs After Setup**
+```bash
+# ❌ OLD WAY (manual context loading)
+(cat CLAUDE.md && cat agents/doc-planner.md && cat agents/microtask-breakdown.md) | npx claude-flow@alpha swarm "build game" --claude
+
+# ✅ NEW WAY (automatic)
+cf-swarm "build game"
 ```
-your-project/
-├── 🐳 .devcontainer/
-│   └── devcontainer.json
-├── 🛠️ devpods/
-│   ├── setup.sh
-│   ├── post-setup.sh
-│   ├── tmux-workspace.sh
-│   ├── FEEDCLAUDE.md
-│   ├── CLAUDE.md
-│   └── additional-agents/
-├── 📁 [your existing project files]
-└── 🤖 [agents will be installed at runtime]
+
+### 💡 **Usage Examples**
+```bash
+# 🎮 Game development
+cf-swarm "build a multiplayer tic-tac-toe game with real-time updates"
+
+# 🌐 Web development  
+cf-hive "create a full-stack blog with authentication and admin panel"
+
+# 🔍 Analysis tasks
+cf "analyze this codebase and suggest improvements"
+
+# 📊 Any Claude Flow command
+cf "memory query recent --limit 10"
+cf "neural train --pattern coordination"
 ```
+
+### 🚀 **Available Context Commands**
+```bash
+# Main context-loaded commands
+cf-swarm "task"          # Swarm with auto-loaded context
+cf-hive "task"           # Hive-mind spawn with auto-loaded context  
+cf "any command"         # General Claude Flow with context
+
+# Quick aliases
+dsp                      # claude --dangerously-skip-permissions
+
+# Manual context loading (optional)
+load-claude              # Show CLAUDE.md
+load-doc-planner         # Show doc-planner.md  
+load-microtask           # Show microtask-breakdown.md
+load-all-context         # Show all context files
+
+# Agent discovery
+list-agents              # ls agents/
+find-agent "keyword"     # find agents matching keyword
+count-agents             # count total agents
+```
+
+---
 
 ### 🔄 **2. Automatic Setup**
 When VSCode opens, the workspace automatically:
@@ -610,16 +498,23 @@ The **🖥️ tmux workspace** includes 4 optimized windows:
 
 ### 🤖 **3. Using Claude Agents**
 ```bash
+# 🚀 NEW: Use context-loaded Claude Flow (RECOMMENDED)
+cf-swarm "Look at available agents and build a REST API"
+cf-hive "Select appropriate agents for a complex e-commerce platform"
+
+# 📊 Check what context is loaded
+load-all-context  # Manual command to see loaded context
+
 # 📊 List all available agents
 ls /workspaces/turbo-flow-claude/agents/*.md | wc -l
 
 # 🔍 Search for specific agents
 ls /workspaces/turbo-flow-claude/agents/*test*.md
 
-# 💬 Tell Claude to use agents
+# 💬 Tell Claude to use agents (traditional method)
 "Look in /workspaces/turbo-flow-claude/agents/ and select the best agents for [task]"
 
-# 📝 Load mandatory agents (ALWAYS START WITH THESE!)
+# 📝 Load mandatory agents (now automatic with cf- commands)
 cat /workspaces/turbo-flow-claude/agents/doc-planner.md
 cat /workspaces/turbo-flow-claude/agents/microtask-breakdown.md
 ```
@@ -703,7 +598,7 @@ Always include this in your prompts to maximize agent effectiveness:
 "🔬 Draft detailed research into using rackspace spot H100-enabled servers to spawn a self hosted LLM service on rackspace spot compute platform using kubernetes. Put the output into research/rackspace folder. 
 📊 Draw information from youtube transcripts (tools/youtube-transcript-api), github repos, blog posts, and any web-accessible source. 
 📝 Draft detailed instructions to create the kubernetes manifests to serve the likes of qwen3 coder, kimi k2, and other state of the art models. 
-📅 Remember the current date is August 22, 2025. 
+📅 Remember the current date is August 23, 2025. 
 🤖 Spawn 5 agents to work on this process concurrently. 
 ⚡ Use the available MCP servers to conduct this research. 
 🔄 Keep iterating until a clear path to implementation exists. 
@@ -721,73 +616,9 @@ Always include this in your prompts to maximize agent effectiveness:
 🔍 If stuck, contact deep research using web-accessible sources, github repos, and youtube video transcripts to identify solutions."
 ```
 
-#### 🔬 **Example 6: Multi-Agent Research Coordination**
-```
-"📚 I need to research Kubernetes LLM serving, cost optimization, and deployment patterns. Current date is August 22, 2025.
-- 🚀 Spawn specialized agents for: Infrastructure (kimi k2), Cost analysis (Triton), GPU optimization ($0.71/hr H100 spot)
-- ⚡ Create parallel deployment strategies using available MCP servers
-- 🔄 Keep iterating until implementation path is clear
-- 🌐 Use web-accessible sources, GitHub repos, and YouTube video transcripts
-- 🤖 Coordinate findings across all agents to identify optimal solutions
-- 🤔 Ask yourself: should I use swarm or hivemind for this task?"
-```
-
-### 🎯 **Advanced Prompting Techniques**
-
-#### 🔄 **Recursive Problem Solving with Deep Research**
-```
-"🧠 Use recursive thinking to break down this problem. If you get stuck, spawn a research agent to do deep research into:
-- 🎥 YouTube transcripts for tutorials
-- 📚 GitHub repos for implementation examples  
-- 📝 Blog posts for best practices
-- 🔍 Analyze existing code for patterns
-- 🌐 Search all web-accessible resources
-🔄 Keep recursing until you find a working solution. If stuck, do deep research to come up with solutions to try."
-```
-
-#### 🧪 **TDD with Goal Achievement and Iteration**
-```
-"🎯 Define the end result: A working API with 100% test coverage
-🧪 Use TDD approach and iterate until goal is achieved:
-1. Write failing tests for each endpoint
-2. Implement minimal code to pass
-3. Refactor while keeping tests green
-4. Iterate until all acceptance criteria are met
-5. 📸 Use playwright to take screenshots and verify GUI output is correct
-6. If tests fail, do prompt-specific research and try again
-7. 🔄 Keep iterating until goal is achieved
-Use CC (Claude Code) for more tasks"
-```
-
-#### 📸 **Visual Verification Loop with Playwright**
-```
-"🎨 Build the dashboard component:
-1. Create the UI component
-2. 🧪 Install and use playwright for screenshots so the agent can verify the output in the GUI is correct
-3. 📸 Take a screenshot at 1920x1080 resolution
-4. ✅ Verify the output matches the design specs
-5. 🔄 If not correct, iterate on the CSS/layout
-6. Keep iterating until pixel-perfect
-7. 🧠 Use recursive thinking if stuck
-Use CC (Claude Code) for implementing changes"
-```
-
-#### 🔍 **Deep Research Pattern**
-```
-"📚 Research the best approach for implementing real-time collaborative editing. Current date is August 22, 2025.
-1. 🌐 Search all web-accessible resources from the last 2 years
-2. 🎥 Analyze YouTube video transcripts for 'collaborative editing implementation'
-3. 📚 Study GitHub repos using CRDTs or OT algorithms
-4. 📝 Read blog posts about scaling collaborative apps
-5. 🔍 Analyze code for desired patterns
-6. 📊 Do research for desired result
-7. ⚡ Feed findings from MCP tools into your analysis
-8. 🗺️ Describe the way - multiple implementation paths with pros/cons"
-```
-
 ### 🎯 **Key Prompting Principles**
 
-1. 📅 **Always specify the current date** - "Remember the current date is August 22, 2025"
+1. 📅 **Always specify the current date** - "Remember the current date is August 23, 2025"
 2. 🎯 **Define clear end goals** - "Define the end result" - Agents work better with specific targets
 3. 🔄 **Use iterative refinement** - "Keep iterating until [specific condition]" - "Iterate until goal"
 4. 📸 **Leverage visual verification** - "Install and use playwright for screenshots" - GUI testing
@@ -797,11 +628,6 @@ Use CC (Claude Code) for implementing changes"
 8. 🤖 **Spawn agents concurrently** - "Spawn 5 agents to work on this process concurrently"
 9. 📁 **Specify output locations** - "Put the output into research/rackspace folder"
 10. 🔄 **Include fallback strategies** - "If stuck, do deep research to come up with solutions to try"
-11. 🧠 **Use recursive thinking** - Break down problems recursively
-12. 🎯 **Prompt-specific research** - Research tailored to the specific problem
-13. 🗺️ **Describe the way** - Have agents explain their approach
-14. ⚡ **Use CC for more tasks** - Leverage Claude Code for implementation
-15. 🌐 **Search all web-accessible resources** - YouTube, GitHub, blogs, etc.
 
 ---
 
@@ -828,7 +654,7 @@ Your workspace will have:
 │   ├── doc-planner.md
 │   ├── microtask-breakdown.md
 │   └── ... (600+ more)
-├── 📋 claude.md                  # Claude configuration
+├── 📋 CLAUDE.md                  # Claude configuration
 ├── ⚡ claude-flow               # SPARC workflow tools
 └── 📁 [your project files]
 ```
@@ -846,36 +672,9 @@ Your workspace will have:
 echo "=== SYSTEM CHECK ==="
 echo "Agents: $(ls -1 /workspaces/turbo-flow-claude/agents/*.md 2>/dev/null | wc -l)"
 echo "Claude-code: $(which claude-code && echo '✓ Installed' || echo '✗ Missing')"
-echo "Claude-usage: $(which claude-usage-cli && echo '✓ Installed' || echo '✗ Missing')"
+echo "Claude-monitor: $(which claude-monitor && echo '✓ Installed' || echo '✗ Missing')"
 echo "Claude-flow: $(ls /workspaces/turbo-flow-claude/claude-flow 2>/dev/null && echo '✓ Installed' || echo '✗ Missing')"
 echo "Tmux: $(which tmux && echo '✓ Installed' || echo '✗ Missing')"
-```
-## 🔥 **DSP Alias**
-
-Quick shortcut for `claude --dangerously-skip-permissions`
-
-### **Usage:**
-```bash
-# Instead of:
-claude --dangerously-skip-permissions
-
-# Just type:
-dsp
-
-## 🏗️ Architecture Overview
-```
-Your Computer
-    ↓ (DevPod CLI)
-☁️ Cloud Provider (DigitalOcean/AWS/Azure/GCP)
-    ├── 🐳 Docker Engine
-    └── 🏗️ DevContainer
-         ├── 📁 Your Code
-         ├── 🤖 600+ AI Agents
-         ├── 🛠️ Development Tools
-         ├── 🐳 Docker-in-Docker
-         └── 💻 VSCode Server
-              ↓
-         💻 Your VSCode (connected)
 ```
 
 ## 🔧 Troubleshooting
@@ -920,6 +719,7 @@ devpod stop turbo-flow-claude
 # ▶️ Resume workspace
 devpod up turbo-flow-claude --ide vscode
 ```
+
 ## 📚 Resources
 - 📖 [DevPod Documentation](https://devpod.sh/docs)
 - ⚡ [Claude Flow SPARC](https://github.com/ruvnet/claude-flow) - by Reuven Cohen.
