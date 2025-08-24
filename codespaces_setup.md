@@ -10,28 +10,20 @@
 git clone https://github.com/marcuspat/turbo-flow-claude.git
 
 # Navigate to your project directory (or create one)
-cd /path/to/your/project
+cd /workspaces/projectname
 # OR create a new project: mkdir my-project && cd my-project
 
-# Copy the devpods directory to your project
-cp -r /path/to/turbo-flow-claude/devpods ./
+# Move the devpods directory to your project
+mv turbo-flow-claude/devpods/ .
 
 # Make all scripts executable
 chmod +x devpods/*.sh
 
 # Run all 3 scripts in order
 
-./setup.sh && post-setup.sh && tmux-workspace.sh
+./devpods/setup.sh && ./devpods/post-setup.sh && ./devpods/tmux-workspace.sh 
 
 ```
-
-
-- Run `setup.sh`, `post-setup.sh`, and `tmux-workspace.sh`
-- Handles all interactive prompts with automatic "yes" responses
-- Provides clear progress feedback throughout the process
-- Stops on errors with helpful messages
-- No manual intervention required
-
 ---
 
 ## 🛠️ Alternative Setup Methods
