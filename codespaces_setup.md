@@ -1,43 +1,101 @@
 # 🚀 DevPods Setup for GitHub Codespaces
 
-## Quick Setup - Clone & Run
+## ⚡ Recommended: Automated Setup
 
-### **Step 1: Clone the Repository**
+### **Use setup_codespace.sh (Preferred Method)**
 
+**Step 1: Clone the repository and navigate to your project**
 ```bash
+# Clone the turbo-flow-claude repository
 git clone https://github.com/marcuspat/turbo-flow-claude.git
-```
 
-### **Step 2: Move DevPods to Your Project**
-
-```bash
-# Navigate to your project root
+# Navigate to your project directory (or create one)
 cd /path/to/your/project
+# OR create a new project: mkdir my-project && cd my-project
 
-# Copy devpods directory from the cloned repo
+# Copy the devpods directory to your project
 cp -r /path/to/turbo-flow-claude/devpods ./
 
-# Or if you cloned in the same directory:
-cp -r turbo-flow-claude/devpods ./
+# Make all scripts executable
+chmod +x devpods/*.sh
 ```
 
-### **Step 3: Run Setup Scripts**
+**Step 2: Run the automated setup script**
+```bash
+./devpods/setup_codespace.sh
+```
+
+**Alternative: Direct download method**
+```bash
+# If you prefer not to clone the full repo
+curl -s https://raw.githubusercontent.com/marcuspat/turbo-flow-claude/main/devpods/setup_codespace.sh -o setup_codespace.sh
+chmod +x setup_codespace.sh
+./setup_codespace.sh
+```
+
+**What `setup_codespace.sh` does:**
+- Automatically runs `setup.sh`, `post-setup.sh`, and `tmux-workspace.sh`
+- Handles all interactive prompts with automatic "yes" responses
+- Provides clear progress feedback throughout the process
+- Stops on errors with helpful messages
+- No manual intervention required
+
+---
+
+## 🛠️ Alternative Setup Methods
+
+### **Method 1: One-Command Clone and Setup**
 
 ```bash
-# Make scripts executable
-chmod +x devpods/*.sh
+# Clone repository to temp directory and copy devpods to current project
+TEMP_DIR=$(mktemp -d)
+git clone https://github.com/marcuspat/turbo-flow-claude.git "$TEMP_DIR/turbo-flow-claude"
+cp -r "$TEMP_DIR/turbo-flow-claude/devpods" ./
+rm -rf "$TEMP_DIR"
 
+# Make all scripts executable and run automated setup
+chmod +x devpods/*.sh
+./devpods/setup_codespace.sh
+```
+
+### **Method 2: Download Individual Scripts**
+
+```bash
+# Download all required scripts
+mkdir -p devpods
+curl -s https://raw.githubusercontent.com/marcuspat/turbo-flow-claude/main/devpods/setup.sh -o devpods/setup.sh
+curl -s https://raw.githubusercontent.com/marcuspat/turbo-flow-claude/main/devpods/post-setup.sh -o devpods/post-setup.sh
+curl -s https://raw.githubusercontent.com/marcuspat/turbo-flow-claude/main/devpods/tmux-workspace.sh -o devpods/tmux-workspace.sh
+curl -s https://raw.githubusercontent.com/marcuspat/turbo-flow-claude/main/devpods/setup_codespace.sh -o devpods/setup_codespace.sh
+
+# Make all scripts executable and run automated setup
+chmod +x devpods/*.sh
+./devpods/setup_codespace.sh
+```
+
+### **Method 3: Manual Script Execution** *(Not Recommended)*
+
+Only use this if you need to run scripts individually for debugging:
+
+```bash
 # Set environment variables
 export WORKSPACE_FOLDER="$(pwd)"
 export AGENTS_DIR="$WORKSPACE_FOLDER/agents"
 
-# Run all setup scripts
-./devpods/setup.sh -y && ./devpods/post-setup.sh -y && ./devpods/tmux-workspace.sh -y
+# Make scripts executable
+chmod +x devpods/*.sh
+
+# Run scripts manually (you'll have to answer prompts)
+./devpods/setup.sh
+./devpods/post-setup.sh
+./devpods/tmux-workspace.sh
 ```
 
-## 🚀 One-Command Setup Script
+---
 
-Create this script to automate the entire process:
+## 🚀 Complete Installation Script
+
+If you want a single script that downloads everything and runs setup:
 
 ```bash
 cat << 'EOF' > install-devpods.sh
@@ -58,23 +116,10 @@ cp -r "$TEMP_DIR/turbo-flow-claude/devpods" ./
 # Clean up temp directory
 rm -rf "$TEMP_DIR"
 
-# Make scripts executable
+# Run the automated setup script (preferred method)
+echo "🔧 Running automated setup..."
 chmod +x devpods/*.sh
-
-# Set environment variables
-export WORKSPACE_FOLDER="$(pwd)"
-export AGENTS_DIR="$WORKSPACE_FOLDER/agents"
-
-echo "📁 Environment variables set:"
-echo "  WORKSPACE_FOLDER: $WORKSPACE_FOLDER"
-echo "  AGENTS_DIR: $AGENTS_DIR"
-
-# Run setup scripts
-echo "🔧 Running setup scripts..."
-./devpods/setup.sh -y
-./devpods/post-setup.sh -y
-./devpods/tmux-workspace.sh -y &
-disown
+./devpods/setup_codespace.sh
 
 echo ""
 echo "🎉 DevPods setup complete!"
@@ -82,55 +127,70 @@ echo ""
 echo "📋 What was installed:"
 echo "  ✅ Claude Code CLI"
 echo "  ✅ Claude Monitor" 
-echo "  ✅ Terminal Jarvis"
-echo "  ✅ 600+ AI Agents"
+echo "  ✅ Claude Flow with context wrapper"
+echo "  ✅ Extensive AI agent library"
 echo "  ✅ Playwright Testing"
 echo "  ✅ TypeScript Environment"
 echo "  ✅ Tmux Workspace (4 windows)"
 echo ""
 echo "🎯 Next Steps:"
-echo "  1. tmux attach -t workspace"
-echo "  2. cat agents/doc-planner.md"
-echo "  3. Use 'dsp' for quick Claude access"
-echo "  4. Start building with Claude Flow!"
+echo "  1. source ~/.bashrc"
+echo "  2. tmux attach -t workspace"
+echo "  3. cf 'Hello world'"
+echo "  4. Start building with AI assistance!"
 EOF
 
 chmod +x install-devpods.sh
-./install-devpods.sh -y
+./install-devpods.sh
 ```
 
-## 🎯 Super Quick One-Liner
-
-Run this single command in your project directory:
-
-```bash
-curl -s https://raw.githubusercontent.com/marcuspat/turbo-flow-claude/main/devpods/setup.sh -o setup.sh && \
-curl -s https://raw.githubusercontent.com/marcuspat/turbo-flow-claude/main/devpods/post-setup.sh -o post-setup.sh && \
-curl -s https://raw.githubusercontent.com/marcuspat/turbo-flow-claude/main/devpods/tmux-workspace.sh -o tmux-workspace.sh && \
-mkdir -p devpods && mv *.sh devpods/ && chmod +x devpods/*.sh && \
-export WORKSPACE_FOLDER="$(pwd)" AGENTS_DIR="$(pwd)/agents" && \
-./devpods/setup.sh && ./devpods/post-setup.sh && ./devpods/tmux-workspace.sh
-```
+---
 
 ## 📁 What Gets Installed
 
+After running `setup_codespace.sh`, you'll have:
+
 ```
 your-project/
-├── devpods/                 # Setup scripts
-│   ├── setup.sh            # Main installation
-│   ├── post-setup.sh       # Verification
-│   └── tmux-workspace.sh   # Tmux config
-├── agents/                  # 600+ AI agents
-├── src/                     # Source code
-├── tests/                   # Test files
-├── docs/                    # Documentation
-├── config/                  # Configuration
-├── CLAUDE.md               # Claude rules
-├── FEEDCLAUDE.md           # Instructions
-├── package.json            # Node.js config
-├── playwright.config.ts    # Testing config
-└── tsconfig.json           # TypeScript config
+├── devpods/                    # Setup scripts
+│   ├── setup.sh               # Main installation
+│   ├── post-setup.sh          # Verification
+│   ├── tmux-workspace.sh      # Tmux config
+│   └── setup_codespace.sh     # 🆕 Automated runner
+├── agents/                     # Extensive AI agent library
+│   ├── doc-planner.md         # SPARC planning agent
+│   ├── microtask-breakdown.md # Task decomposition
+│   └── [many more agents]
+├── src/                        # Source code directory
+├── tests/                      # Test files
+├── docs/                       # Documentation
+├── config/                     # Configuration files
+├── cf-with-context.sh         # 🆕 Context wrapper script
+├── CLAUDE.md                  # Claude development rules
+├── FEEDCLAUDE.md              # Streamlined instructions
+├── package.json               # Node.js configuration
+├── playwright.config.ts       # Testing configuration
+└── tsconfig.json              # TypeScript configuration
 ```
+
+---
+
+## 🎯 Command Aliases Available
+
+After running `setup_codespace.sh`, these commands are available:
+
+```bash
+# Turbo-Flow Commands (with auto-context loading)
+cf "any task or question"                    # General AI coordination
+cf-swarm "build specific feature"            # Focused implementation
+cf-hive "complex architecture planning"      # Multi-agent coordination
+
+# Legacy Commands
+dsp                                          # claude --dangerously-skip-permissions
+claude-monitor                               # Usage tracking
+```
+
+---
 
 ## 🖥️ Tmux Workspace
 
@@ -140,47 +200,136 @@ Access the 4-window tmux session:
 tmux attach -t workspace
 ```
 
-**Windows:**
-- **0**: Primary Claude workspace
-- **1**: Secondary Claude workspace  
-- **2**: Claude usage monitor
-- **3**: System monitor (htop)
+**Window Layout:**
+- **Window 0**: Primary Claude workspace
+- **Window 1**: Secondary Claude workspace  
+- **Window 2**: Claude usage monitor
+- **Window 3**: System monitor (htop)
 
-## 💡 Quick Usage
-
+**Tmux Navigation:**
 ```bash
-# Load key agents
+Ctrl+b 0-3    # Switch between windows
+Ctrl+b d      # Detach from session
+Ctrl+b ?      # Help menu
+```
+
+---
+
+## 💡 Quick Usage Examples
+
+### **Test Your Setup**
+```bash
+# Source the new aliases
+source ~/.bashrc
+
+# Test basic AI coordination
+cf "Hello! Test the setup and show me what agents are available"
+
+# Test swarm coordination
+cf-swarm "Create a simple hello world API structure"
+
+# Test hive-mind planning
+cf-hive "Plan a todo app with authentication and real-time updates"
+```
+
+### **Explore Available Agents**
+```bash
+# Check how many agents you have
+ls agents/*.md | wc -l
+
+# View key agents
 cat agents/doc-planner.md
 cat agents/microtask-breakdown.md
 
-# Quick Claude access
-dsp  # alias for: claude --dangerously-skip-permissions
-
-# Claude Flow commands
-npx claude-flow@alpha swarm "build API" --claude
+# Find specific agents
+find agents/ -name "*api*"
+find agents/ -name "*react*"
 ```
+
+---
 
 ## ⚠️ Troubleshooting
 
-**Scripts not executable:**
+### **setup_codespace.sh Won't Run**
 ```bash
+# Make sure all scripts are executable
 chmod +x devpods/*.sh
+./devpods/setup_codespace.sh
 ```
 
-**Missing environment variables:**
+### **Commands Not Found After Setup**
+```bash
+# Reload your shell configuration
+source ~/.bashrc
+
+# Or restart your terminal/codespace
+```
+
+### **Environment Variables Missing**
 ```bash
 export WORKSPACE_FOLDER="$(pwd)"
 export AGENTS_DIR="$(pwd)/agents"
 ```
 
-**Tmux issues:**
+### **Tmux Issues**
 ```bash
+# Kill existing tmux sessions
 tmux kill-server
-./devpods/tmux-workspace.sh
+
+# Re-run tmux setup via the automated script
+./devpods/setup_codespace.sh
 ```
 
-## 🎉 Ready!
+### **Agent Files Missing**
+```bash
+# Check if agents directory exists
+ls -la agents/
 
-You now have a complete Claude development environment with 600+ AI agents, monitoring tools, and optimized workspace configuration.
+# Re-run the complete setup
+./devpods/setup_codespace.sh
+```
 
-Start building with AI-powered workflows! 🚀
+### **Context Wrapper Not Working**
+```bash
+# Check if the wrapper script exists
+ls -la cf-with-context.sh
+
+# Make it executable
+chmod +x cf-with-context.sh
+
+# Test manually
+./cf-with-context.sh swarm "test command"
+```
+
+---
+
+## 🔄 Update/Reinstall
+
+To update your setup:
+
+```bash
+# Backup any custom changes
+cp CLAUDE.md CLAUDE.md.backup
+
+# Re-download and run the automated setup
+curl -s https://raw.githubusercontent.com/marcuspat/turbo-flow-claude/main/devpods/setup_codespace.sh -o setup_codespace.sh
+chmod +x setup_codespace.sh
+./setup_codespace.sh
+```
+
+---
+
+## 🎉 You're Ready!
+
+After successful `setup_codespace.sh` execution, you have:
+
+✅ **Complete AI development environment**  
+✅ **Extensive agent library with automatic context loading**  
+✅ **Monitoring and testing tools**  
+✅ **Optimized workspace configuration**  
+✅ **Simple command aliases for AI coordination**
+
+**Start building with AI assistance:**
+```bash
+cf-swarm "Help me build my first app with this setup"
+```
