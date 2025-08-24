@@ -123,6 +123,36 @@ This project uses SPARC (Specification, Pseudocode, Architecture, Refinement, Co
 
 ## 🤖 Agent Reference (600+ Total)
 
+## 🤖 Agent Discovery and Selection Protocol
+
+### 🔍 MANDATORY: Agent Discovery Step
+Before starting any task, ALWAYS discover available agents:
+
+```bash
+# Count total agents
+ls $WORKSPACE_FOLDER/agents/*.md 2>/dev/null | wc -l
+
+# Search for specific functionality
+find $WORKSPACE_FOLDER/agents/ -name "*test*"
+find $WORKSPACE_FOLDER/agents/ -name "*web*" 
+find $WORKSPACE_FOLDER/agents/ -name "*api*"
+find $WORKSPACE_FOLDER/agents/ -name "*game*"
+
+# Sample random agents
+ls $WORKSPACE_FOLDER/agents/*.md | shuf | head -10 | sed 's|.*/||g' | sed 's|.md||g'
+```
+
+### 🎯 Agent Selection Workflow
+1. **Discover** - Run agent discovery commands
+2. **Select** - Choose 3-7 relevant agents beyond mandatory 2
+3. **Load** - Use `cat $WORKSPACE_FOLDER/agents/[agent-name].md`
+4. **Coordinate** - Spawn via Task tool
+
+### 🔄 Integration with Mandatory Workflow
+- **BEFORE** doc-planner: Discover relevant agents for project type
+- **DURING** microtask-breakdown: Select agents for each atomic task  
+- **AFTER** planning: Load and coordinate selected agents
+
 ### Agents Directory Location
 ```bash
 # DevPod automatically provides workspace variables
