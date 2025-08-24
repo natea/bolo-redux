@@ -79,6 +79,23 @@ cat $WORKSPACE_FOLDER/agents/microtask-breakdown.md
 - `doc-planner` - Documentation planning, SPARC workflow
 - `microtask-breakdown` - Atomic task decomposition
 
+## 🔴 MANDATORY AGENT LOADING PROTOCOL
+
+### ⚡ BEFORE ANY TASK: Auto-Load Mandatory Agents
+```javascript
+// EVERY development task MUST start with these reads:
+[Single Message - Mandatory Agent Loading]:
+  Read("agents/doc-planner.md")
+  Read("agents/microtask-breakdown.md")
+  
+  // Then use Task tool with loaded agent instructions
+  Task("Doc Planning", "Follow the doc-planner methodology just loaded to create comprehensive documentation plan", "planner")
+  Task("Microtask Breakdown", "Follow the microtask-breakdown methodology just loaded to break into atomic 10-minute tasks", "analyst")
+  
+  // Continue with specialized agents
+  Task("Implementation", "...", "coder")
+  Task("Testing", "...", "tester")
+
 ### Core Development
 - `coder` - Implementation
 - `reviewer` - Code quality
