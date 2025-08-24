@@ -19,6 +19,9 @@ tmux kill-session -t workspace 2>/dev/null || true
 # Create new session with first window for Claude
 tmux new-session -d -s workspace -n "Claude-1" -c "$WORKSPACE_FOLDER"
 
+# Set large scrollback buffer for all windows
+tmux set-option -g history-limit 50000
+
 # Create second window for Claude
 tmux new-window -t workspace:1 -n "Claude-2" -c "$WORKSPACE_FOLDER"
 
