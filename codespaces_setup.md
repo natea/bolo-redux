@@ -29,7 +29,7 @@ chmod +x devpods/*.sh
 ```bash
 # If you prefer not to clone the full repo
 curl -s https://raw.githubusercontent.com/marcuspat/turbo-flow-claude/main/devpods/setup_codespace.sh -o setup_codespace.sh
-chmod +x setup_codespace.sh
+chmod +x *.sh
 ./setup_codespace.sh
 ```
 
