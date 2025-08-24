@@ -24,15 +24,6 @@ chmod +x devpods/*.sh
 ```bash
 ./devpods/setup_codespace.sh
 ```
-
-**Alternative: Direct download method**
-```bash
-# If you prefer not to clone the full repo
-curl -s https://raw.githubusercontent.com/marcuspat/turbo-flow-claude/main/devpods/setup_codespace.sh -o setup_codespace.sh
-chmod +x *.sh
-./setup_codespace.sh
-```
-
 **What `setup_codespace.sh` does:**
 - Automatically runs `setup.sh`, `post-setup.sh`, and `tmux-workspace.sh`
 - Handles all interactive prompts with automatic "yes" responses
