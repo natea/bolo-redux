@@ -79,7 +79,7 @@ cat $WORKSPACE_FOLDER/agents/microtask-breakdown.md
 2. **Recursive Problem Solving**: Break complex problems to atomic units
 3. **Iterate Until Success**: Continue until goal achieved - no giving up
 4. **Deep Research Protocol**: Auto-search YouTube, GitHub, blogs when stuck
-5. **Date Context**: Current date is $(date +"%A, %B %d, %Y")
+5. **Date Context**: Reference current date when relevant to tasks
 6. **Swarm vs Hive**: Clear decision tree for coordination patterns
 
 ## Project Overview
