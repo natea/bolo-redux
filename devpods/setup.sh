@@ -220,11 +220,16 @@ case "$1" in
         if [[ "$2" == "spawn" ]]; then
             npx claude-flow@alpha hive-mind spawn "${@:3}" --claude <<< "$(load_context)"
         else
-            npx claude-flow@alpha hive-mind "$@"
+            # Handle cf-hive case where args come after hive-mind
+            npx claude-flow@alpha hive-mind spawn "${@:2}" --claude <<< "$(load_context)"
         fi
         ;;
     *)
-        npx claude-flow@alpha "$@" --claude <<< "$(load_context)"
+        if [[ $# -gt 0 ]]; then
+            npx claude-flow@alpha "$@" --claude <<< "$(load_context)"
+        else
+            npx claude-flow@alpha --help
+        fi
         ;;
 esac
 WRAPPER_EOF
