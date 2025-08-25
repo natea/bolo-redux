@@ -193,6 +193,11 @@ load_context() {
         context+="=== CLAUDE RULES ===\n$(cat CLAUDE.md)\n\n"
     fi
     
+    # Load CCFOREVER.md
+    if [[ -f "CCFOREVER.md" ]]; then
+        context+="=== CC FOREVER INSTRUCTIONS ===\n$(cat CCFOREVER.md)\n\n"
+    fi
+    
     # Load doc-planner.md
     if [[ -f "agents/doc-planner.md" ]]; then
         context+="=== DOC PLANNER AGENT ===\n$(cat agents/doc-planner.md)\n\n"
