@@ -10,6 +10,20 @@ echo "DEVPOD_WORKSPACE_FOLDER: $DEVPOD_WORKSPACE_FOLDER"
 echo "AGENTS_DIR: $AGENTS_DIR"
 echo "DEVPOD_DIR: $DEVPOD_DIR"
 
+# Install tmux if not available
+if ! command -v tmux >/dev/null 2>&1; then
+    echo "📦 Installing tmux and htop..."
+    sudo apt-get update -qq
+    sudo apt-get install -y tmux htop
+    echo "✅ tmux and htop installed successfully"
+fi
+
+# Verify tmux installation
+if ! command -v tmux >/dev/null 2>&1; then
+    echo "❌ tmux installation failed - cannot continue"
+    exit 1
+fi
+
 # Ensure we're in the workspace directory
 cd "$WORKSPACE_FOLDER"
 
@@ -65,5 +79,5 @@ tmux send-keys -t workspace:1 "echo 'DevPod Dir: $DEVPOD_DIR'" C-m
 # Select the first window
 tmux select-window -t workspace:0
 
-# Attach to the session
-tmux attach-session -t workspace
+echo "✅ TMux workspace 'workspace' created successfully!"
+echo "📝 To attach: tmux attach -t workspace"
