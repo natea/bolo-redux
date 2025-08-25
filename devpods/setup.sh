@@ -216,12 +216,14 @@ case "$1" in
     "swarm")
         npx claude-flow@alpha swarm "${@:2}" --claude <<< "$(load_context)"
         ;;
-    "hive-mind")
+    "hive-mind"|"hive")
+        # hive-mind doesn't like stdin input, so don't use heredoc
+        echo "🚀 Running Claude Flow hive-mind..."
         if [[ "$2" == "spawn" ]]; then
-            npx claude-flow@alpha hive-mind spawn "${@:3}" --claude <<< "$(load_context)"
+            npx claude-flow@alpha hive-mind spawn "${@:3}" --claude
         else
             # Handle cf-hive case where args come after hive-mind
-            npx claude-flow@alpha hive-mind spawn "${@:2}" --claude <<< "$(load_context)"
+            npx claude-flow@alpha hive-mind spawn "${@:2}" --claude
         fi
         ;;
     *)
