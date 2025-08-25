@@ -80,4 +80,7 @@ tmux send-keys -t workspace:1 "echo 'DevPod Dir: $DEVPOD_DIR'" C-m
 tmux select-window -t workspace:0
 
 echo "✅ TMux workspace 'workspace' created successfully!"
-echo "📝 To attach: tmux attach -t workspace"
+echo "📝 Attaching to tmux session..."
+
+# Attach to the session
+tmux attach-session -t workspace
