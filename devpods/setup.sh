@@ -214,17 +214,20 @@ load_context() {
 # Check command type and execute with context
 case "$1" in
     "swarm")
-        load_context | npx claude-flow@alpha swarm "${@:2}" --claude
+        FULL_MESSAGE="$(load_context)${@:2}"
+        npx claude-flow@alpha swarm "$FULL_MESSAGE" --claude
         ;;
     "hive-mind")
         if [[ "$2" == "spawn" ]]; then
-            load_context | npx claude-flow@alpha hive-mind spawn "${@:3}" --claude
+            FULL_MESSAGE="$(load_context)${@:3}"
+            npx claude-flow@alpha hive-mind spawn "$FULL_MESSAGE" --claude
         else
             npx claude-flow@alpha hive-mind "$@"
         fi
         ;;
     *)
-        load_context | npx claude-flow@alpha "$@" --claude
+        FULL_MESSAGE="$(load_context)$@"
+        npx claude-flow@alpha "$FULL_MESSAGE" --claude
         ;;
 esac
 WRAPPER_EOF
