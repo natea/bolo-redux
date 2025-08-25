@@ -12,8 +12,9 @@ git clone https://github.com/marcuspat/turbo-flow-claude.git
 # Navigate to your codespace project directory
 cd /workspaces/your-project-name
 
-# Move the devpods directory to your project
+# Move the devpods directory to your project and delete turbo flow claude dir
 mv turbo-flow-claude/devpods/ .
+rm -rf turbo-flow-claude
 
 # Make all scripts executable
 chmod +x devpods/*.sh
