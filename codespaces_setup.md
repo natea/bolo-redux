@@ -23,17 +23,28 @@ chmod +x devpods/*.sh
 ./devpods/codespace_setup.sh
 ```
 
+**Step 2: Connect to tmux workspace**
+```bash
+# After setup completes, attach to the tmux session
+tmux attach -t workspace
+```
+
 **Alternative: Direct download method**
 ```bash
 # If you prefer not to clone the full repo
 curl -s https://raw.githubusercontent.com/marcuspat/turbo-flow-claude/main/devpods/codespace_setup.sh -o codespace_setup.sh
 chmod +x codespace_setup.sh
 ./codespace_setup.sh
+
+# Then attach to tmux
+tmux attach -t workspace
 ```
 
 **What `codespace_setup.sh` does:**
 - Automatically runs `setup.sh`, `post-setup.sh`, and `tmux-workspace.sh`
+- Installs tmux and htop if not available
 - Handles all interactive prompts with automatic "yes" responses
+- Creates a 4-window tmux workspace but doesn't auto-attach
 - Provides clear progress feedback throughout the process
 - Stops on errors with helpful messages
 - No manual intervention required
@@ -54,6 +65,9 @@ rm -rf "$TEMP_DIR"
 # Make all scripts executable and run automated setup
 chmod +x devpods/*.sh
 ./devpods/codespace_setup.sh
+
+# Connect to tmux workspace
+tmux attach -t workspace
 ```
 
 ### **Method 2: Download Individual Scripts**
@@ -69,6 +83,9 @@ curl -s https://raw.githubusercontent.com/marcuspat/turbo-flow-claude/main/devpo
 # Make all scripts executable and run automated setup
 chmod +x devpods/*.sh
 ./devpods/codespace_setup.sh
+
+# Connect to tmux workspace
+tmux attach -t workspace
 ```
 
 ### **Method 3: Manual Script Execution** *(Not Recommended)*
@@ -87,6 +104,9 @@ chmod +x devpods/*.sh
 ./devpods/setup.sh
 ./devpods/post-setup.sh
 ./devpods/tmux-workspace.sh
+
+# Connect to tmux workspace
+tmux attach -t workspace
 ```
 
 ---
@@ -140,6 +160,9 @@ EOF
 
 chmod +x install-devpods.sh
 ./install-devpods.sh
+
+# After running the install script, connect to tmux
+tmux attach -t workspace
 ```
 
 ---
@@ -192,34 +215,56 @@ claude-monitor                               # Usage tracking
 
 ## 🖥️ Tmux Workspace
 
-Access the 4-window tmux session:
+**⚠️ IMPORTANT: You must manually attach to the tmux session after setup**
 
 ```bash
+# Connect to the tmux workspace (required after setup)
 tmux attach -t workspace
 ```
 
 **Window Layout:**
 - **Window 0**: Primary Claude workspace
 - **Window 1**: Secondary Claude workspace  
-- **Window 2**: Claude usage monitor
-- **Window 3**: System monitor (htop)
+- **Window 2**: Claude usage monitor (running claude-monitor)
+- **Window 3**: System monitor (running htop)
 
 **Tmux Navigation:**
 ```bash
 Ctrl+b 0-3    # Switch between windows
-Ctrl+b d      # Detach from session
+Ctrl+b 1-3    # Alternative window switching
+Ctrl+b d      # Detach from session (returns to bash)
 Ctrl+b ?      # Help menu
+```
+
+**Tmux Session Management:**
+```bash
+tmux attach -t workspace         # Attach to workspace
+tmux detach                      # Detach from current session
+tmux list-sessions              # See all tmux sessions
+tmux kill-session -t workspace  # Kill the workspace session
 ```
 
 ---
 
 ## 💡 Quick Usage Examples
 
-### **Test Your Setup**
+### **Complete Setup Workflow**
 ```bash
-# Source the new aliases
+# 1. Run the setup
+./devpods/codespace_setup.sh
+
+# 2. Connect to tmux workspace
+tmux attach -t workspace
+
+# 3. Source the new aliases (in tmux)
 source ~/.bashrc
 
+# 4. Test your AI setup
+cf "Hello! Test the setup and show me what agents are available"
+```
+
+### **Test Your Setup**
+```bash
 # Test basic AI coordination
 cf "Hello! Test the setup and show me what agents are available"
 
@@ -255,9 +300,23 @@ chmod +x devpods/*.sh
 ./devpods/codespace_setup.sh
 ```
 
+### **Can't Connect to Tmux**
+```bash
+# Check if tmux session exists
+tmux list-sessions
+
+# If no session, create manually:
+export WORKSPACE_FOLDER="$(pwd)"
+export AGENTS_DIR="$(pwd)/agents"
+./devpods/tmux-workspace.sh
+
+# Then attach
+tmux attach -t workspace
+```
+
 ### **Commands Not Found After Setup**
 ```bash
-# Reload your shell configuration
+# Reload your shell configuration (run inside tmux)
 source ~/.bashrc
 
 # Or restart your terminal/codespace
@@ -269,13 +328,18 @@ export WORKSPACE_FOLDER="$(pwd)"
 export AGENTS_DIR="$(pwd)/agents"
 ```
 
-### **Tmux Issues**
+### **Tmux Session Issues**
 ```bash
 # Kill existing tmux sessions
 tmux kill-server
 
-# Re-run tmux setup via the automated script
-./devpods/codespace_setup.sh
+# Re-run tmux setup
+export WORKSPACE_FOLDER="$(pwd)"
+export AGENTS_DIR="$(pwd)/agents"
+./devpods/tmux-workspace.sh
+
+# Then attach
+tmux attach -t workspace
 ```
 
 ### **Agent Files Missing**
@@ -313,21 +377,26 @@ cp CLAUDE.md CLAUDE.md.backup
 curl -s https://raw.githubusercontent.com/marcuspat/turbo-flow-claude/main/devpods/codespace_setup.sh -o codespace_setup.sh
 chmod +x codespace_setup.sh
 ./codespace_setup.sh
+
+# Connect to the updated tmux workspace
+tmux attach -t workspace
 ```
 
 ---
 
 ## 🎉 You're Ready!
 
-After successful `codespace_setup.sh` execution, you have:
+After successful `codespace_setup.sh` execution and connecting to tmux:
 
 ✅ **Complete AI development environment**  
 ✅ **Extensive agent library with automatic context loading**  
 ✅ **Monitoring and testing tools**  
-✅ **Optimized workspace configuration**  
+✅ **Optimized 4-window tmux workspace**  
 ✅ **Simple command aliases for AI coordination**
 
-**Start building with AI assistance:**
-```bash
-cf-swarm "Help me build my first app with this setup"
-```
+**Your workflow:**
+1. **Run setup**: `./devpods/codespace_setup.sh`
+2. **Connect to tmux**: `tmux attach -t workspace`  
+3. **Start building**: `cf-swarm "Help me build my first app"`
+
+**Remember**: Always work inside the tmux session for the best experience!
