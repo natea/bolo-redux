@@ -241,8 +241,25 @@ chmod +x cf-with-context.sh
 # Add aliases
 cat << 'ALIASES_EOF' >> ~/.bashrc
 alias cf="./cf-with-context.sh"
-alias cf-swarm="./cf-with-context.sh swarm"
+alias cf-swarm="./cf-with-context.sh swarm" 
 alias cf-hive="./cf-with-context.sh hive-mind spawn"
+
+# Claude Code direct access
+alias cf-dsp="claude --dangerously-skip-permissions"
+
+# Claude Flow native commands (when not using context wrapper)
+alias cf-init="npx claude-flow@alpha init --verify --pair --github-enhanced"
+alias cf-github-hive="npx claude-flow@alpha hive-mind spawn --github-enhanced --agents 13 --claude"
+alias cf-verify="npx claude-flow@alpha verify"
+alias cf-truth="npx claude-flow@alpha truth"
+alias cf-pair="npx claude-flow@alpha pair --start"
+
+# Existing swarm management
+alias cf-resume="npx claude-flow@alpha hive-mind resume"
+alias cf-status="npx claude-flow@alpha hive-mind status"
+alias cf-sessions="npx claude-flow@alpha hive-mind sessions"
+alias cf-continue="npx claude-flow@alpha swarm --continue-session"
+alias cf-upgrade="npx claude-flow@alpha hive-mind upgrade"
 ALIASES_EOF
 
 echo "Setup completed successfully!"
