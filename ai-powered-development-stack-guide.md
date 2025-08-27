@@ -1,5 +1,5 @@
 # 🚀 AI-Powered Development Stack Guide
-## Turbo-Flow Claude + Lovable + Supabase + Vercel
+## Turbo-Flow Claude + Claude-Flow Alpha.88 + Lovable + Supabase + Vercel
 
 ---
 
@@ -7,538 +7,510 @@
 
 **What you're working with:**
 - **Turbo-Flow Claude**: DevPod environment with 600+ curated AI agents and SPARC methodology
-- **Claude-Flow**: AI coordination and swarm intelligence for complex tasks
+- **Claude-Flow Alpha.88**: Advanced AI coordination with truth verification (95% accuracy), pair programming, and 13 specialized GitHub agents
 - **Lovable**: AI-powered frontend generation platform
 - **Supabase**: PostgreSQL-based backend-as-a-service
 - **Vercel**: Modern deployment and hosting platform
 
-**The core advantage**: AI handles routine implementation while you focus on architecture, user experience, and business logic.
+**The core advantage**: AI handles routine implementation with verification while you focus on architecture, user experience, and business logic.
 
 ---
 
-## The Development Workflow
+## Updated Command Aliases
 
-### **Phase 1: Planning & Architecture**
+### Your Current Turbo-Flow Aliases
 ```bash
-# Initialize Turbo-Flow environment with auto-context loading
-devpod up https://github.com/marcuspat/turbo-flow-claude --ide vscode
+# Auto-loaded context with your wrapper script
+alias cf="./cf-with-context.sh"
+alias cf-swarm="./cf-with-context.sh swarm" 
+alias cf-hive="./cf-with-context.sh hive-mind spawn"
 
-# AI-powered project planning
-cf-hive "Plan and architect [APP_TYPE] with modern stack analysis"
-```
+# Direct Claude Code access
+alias cf-dsp="claude --dangerously-skip-permissions"
 
-### **Phase 2: Frontend Generation**
-```bash
-# Use Turbo-Flow output as detailed prompts for Lovable
-# Generate complete UI components and layouts
-```
+# Claude Flow native commands (bypass wrapper when needed)
+alias cf-init="npx claude-flow@alpha init --verify --pair --github-enhanced"
+alias cf-github-hive="npx claude-flow@alpha hive-mind spawn --github-enhanced --agents 13 --claude"
+alias cf-verify="npx claude-flow@alpha verify"
+alias cf-truth="npx claude-flow@alpha truth"
+alias cf-pair="npx claude-flow@alpha pair --start"
 
-### **Phase 3: Backend Setup**
-```bash
-# AI-designed database schema
-cf-swarm "Design Supabase database schema and setup for [APP_TYPE]"
-```
-
-### **Phase 4: Integration & Deployment**
-```bash
-# Coordinate deployment pipeline
-cf "Create deployment pipeline workflow for Vercel integration"
-```
-
----
-
-## AI Coordination Patterns
-
-### **Pattern 1: Feature Development**
-```bash
-# Planning and specification
-cf-swarm "Analyze user requirements and create detailed feature specification for [FEATURE_NAME]"
-
-# Architecture design
-cf "Design optimal architecture and generate implementation plan for [FEATURE_NAME]"
-
-# Implementation coordination
-cf-hive "Implement [FEATURE_NAME] with Lovable frontend and Supabase backend"
-
-# Testing and optimization
-cf-swarm "Create comprehensive test suite and optimize performance for [FEATURE_NAME]"
-```
-
-### **Pattern 2: Rapid Prototyping**
-```bash
-# Concept to specification
-cf-swarm "Transform this idea into a detailed app specification: [YOUR_IDEA]"
-
-# Generate frontend prompts
-cf-swarm "Create detailed Lovable prompts for building [APP_TYPE] based on the specification"
-
-# Database design
-cf-swarm "Design optimal Supabase schema for [APP_TYPE] with RLS policies"
-
-# Deployment automation
-cf "Create automated deployment workflow for prototype"
-```
-
-### **Pattern 3: Feature Enhancement**
-```bash
-# Analysis
-cf-swarm "Analyze current app architecture and suggest 5 high-impact feature improvements"
-
-# Prioritization
-cf "Analyze and prioritize features based on user value and implementation complexity"
-
-# Implementation
-cf-hive "Implement top 3 features with minimal breaking changes"
+# Existing swarm management
+alias cf-resume="npx claude-flow@alpha hive-mind resume"
+alias cf-status="npx claude-flow@alpha hive-mind status"
+alias cf-sessions="npx claude-flow@alpha hive-mind sessions"
+alias cf-continue="npx claude-flow@alpha swarm --continue-session"
+alias cf-upgrade="npx claude-flow@alpha hive-mind upgrade"
 ```
 
 ---
 
-## App-Specific Development Strategies
+## The Enhanced Development Workflow
+
+### **Phase 1: Verification-First Planning & Architecture**
+```bash
+# Initialize with truth verification and GitHub integration
+cf-init
+
+# AI-powered project planning with verification
+cf-hive "Plan and architect [APP_TYPE] with modern stack analysis and truth verification above 0.95 threshold"
+
+# Check existing work if resuming
+cf-status
+cf-sessions
+cf-resume session-xxxxx-xxxxx  # if continuing previous work
+```
+
+### **Phase 2: GitHub-First Development**
+```bash
+# Setup GitHub-enhanced development environment
+npx claude-flow@alpha github init --verify --pair --training-pipeline
+
+# Deploy specialized GitHub agents for repository management
+cf-github-hive "Setup complete GitHub automation with 13 specialized agents for [APP_TYPE]"
+
+# Start pair programming with verification
+cf-pair --verify --truth-threshold 0.95
+```
+
+### **Phase 3: Frontend Generation with Verification**
+```bash
+# Generate detailed Lovable prompts with AI verification
+cf-swarm "Create verified Lovable prompts for [APP_TYPE] frontend with truth score above 0.95"
+
+# Continue with existing session if needed
+cf-continue "enhance frontend specification with modern design patterns"
+```
+
+### **Phase 4: Backend Setup with Truth Verification**
+```bash
+# AI-designed database schema with verification
+cf-swarm "Design and verify Supabase database schema for [APP_TYPE] with 95% accuracy requirement"
+
+# Check truth scores throughout development
+cf-truth
+```
+
+### **Phase 5: Integration & Deployment with GitHub Automation**
+```bash
+# Coordinate deployment with GitHub workflows
+cf "Create verified deployment pipeline with GitHub Actions and Vercel integration"
+
+# Monitor verification throughout deployment
+cf-verify verify deployment-pipeline --agent github-workflow-manager
+```
+
+---
+
+## Enhanced AI Coordination Patterns
+
+### **Pattern 1: Verification-First Feature Development**
+```bash
+# Planning with mandatory truth verification
+cf-swarm "Analyze user requirements and create verified feature specification for [FEATURE_NAME] with 95% accuracy"
+
+# Architecture with GitHub integration
+cf "Design optimal GitHub-integrated architecture for [FEATURE_NAME] with automated workflows"
+
+# Implementation with pair programming
+cf-pair --start
+cf-hive "Implement [FEATURE_NAME] with Lovable frontend, Supabase backend, and GitHub automation"
+
+# Verification and optimization
+cf-verify verify feature-implementation --agent coder
+cf-truth --report
+```
+
+### **Pattern 2: GitHub-Enhanced Rapid Prototyping**
+```bash
+# Concept to verified specification
+cf-swarm "Transform this idea into detailed, verified app specification: [YOUR_IDEA]"
+
+# GitHub repository setup
+npx claude-flow@alpha github repo-architect optimize --structure-analysis --13-agents
+
+# Generate frontend prompts with verification
+cf-swarm "Create verified Lovable prompts for [APP_TYPE] with GitHub integration hooks"
+
+# Database design with truth checking
+cf-verify verify database-design --threshold 0.95
+cf-swarm "Design optimal Supabase schema for [APP_TYPE] with verified RLS policies"
+```
+
+### **Pattern 3: Continuous Feature Enhancement**
+```bash
+# Analysis with GitHub insights
+cf-swarm "Analyze current GitHub repository and suggest 5 verified high-impact improvements"
+
+# Prioritization with truth verification  
+cf "Analyze and prioritize features with verified impact assessment above 90% confidence"
+
+# Implementation with existing session management
+cf-continue "implement top 3 verified features with minimal breaking changes"
+cf-upgrade session-xxxxx-xxxxx --add-verification --add-github-integration
+```
+
+### **Pattern 4: Legacy Project Upgrade**
+```bash
+# Assess existing work
+cf-sessions
+cf-status
+
+# Upgrade existing swarms to Alpha.88
+cf-upgrade session-xxxxx-xxxxx \
+  --add-verification \
+  --add-pair-programming \
+  --add-github-integration \
+  --add-training-pipeline
+
+# Migrate to GitHub-first approach
+npx claude-flow@alpha github migrate-existing \
+  --from-local-git \
+  --setup-13-agents \
+  --enable-workflows
+```
+
+---
+
+## App-Specific Development Strategies (Enhanced)
 
 ### 🚀 **SaaS/Business Applications**
 
-**AI Workflow:**
+**Enhanced AI Workflow:**
 ```bash
-# Architecture planning
-cf-hive "Design SaaS architecture with user management, billing, and analytics"
+# Architecture planning with GitHub integration
+cf-github-hive "Design verified SaaS architecture with GitHub workflows, user management, billing, and analytics"
 
-# Database design
-cf-swarm "Create Supabase schema with RLS policies for multi-tenant SaaS"
+# Database design with truth verification
+cf-verify verify saas-schema --threshold 0.95
+cf-swarm "Create verified Supabase schema with RLS policies for multi-tenant SaaS"
+
+# GitHub automation setup
+npx claude-flow@alpha github workflow-auto create --type "enterprise-saas-ci-cd"
 ```
 
-**Lovable Prompt Template:**
+**Enhanced Lovable Prompt Template:**
 ```
-Create a modern SaaS dashboard with the following features:
+Create a modern SaaS dashboard with GitHub integration ready:
 - Clean, professional design with dark/light mode toggle
+- GitHub-integrated development workflow indicators
 - Sidebar navigation with collapsible menu
 - User profile management with avatar upload
 - Billing/subscription management interface
-- Analytics dashboard with charts and metrics
-- Settings page with team management
+- Analytics dashboard with real-time GitHub metrics
+- Settings page with team management and GitHub sync
 - Responsive design for mobile/desktop
-- Use Tailwind CSS with modern color palette
-- Include loading states and error handling
-- Add subtle animations and micro-interactions
+- Truth verification indicators in development mode
+- Automated deployment status from GitHub Actions
 
 Style: Modern, clean, inspired by Linear/Notion aesthetics
-Color scheme: Professional with accent colors
-Layout: Sidebar + main content area
+GitHub Integration: Webhook endpoints, status indicators
+Verification: Development mode truth score displays
+Layout: Sidebar + main content area with GitHub activity feed
 ```
-
-**Tech Stack:**
-- **Frontend**: Lovable → Next.js 14 + TypeScript + shadcn/ui
-- **Backend**: Supabase (Auth + Database + Edge Functions)
-- **Deployment**: Vercel
-- **AI Coordination**: Turbo-Flow for complex features
-
----
 
 ### 💰 **Fintech Applications**
 
-**AI Workflow:**
+**Enhanced AI Workflow:**
 ```bash
-# Security-focused planning
-cf-hive "Design secure fintech architecture with compliance requirements"
+# Security-focused planning with verification
+cf-github-hive "Design verified secure fintech architecture with GitHub compliance workflows"
 
-# Compliance analysis
-cf-swarm "Research PCI DSS, SOX compliance requirements for fintech app"
+# Enhanced compliance analysis
+cf-verify verify compliance-requirements --threshold 0.98
+cf-swarm "Research and verify PCI DSS, SOX compliance with GitHub audit trails"
 
-# Security-first database design
-cf-swarm "Design Supabase schema with advanced RLS, audit trails, and encryption for fintech"
+# Security-first database with GitHub integration
+cf-swarm "Design verified Supabase schema with advanced RLS, audit trails, and GitHub security hooks"
 ```
-
-**Lovable Prompt Template:**
-```
-Create a secure fintech application interface:
-- Professional banking-grade design
-- Multi-factor authentication flows
-- Dashboard with account balances and transaction history
-- Secure transaction forms with validation
-- Compliance-focused data display
-- Real-time transaction status updates
-- Audit trail interfaces for admin users
-- Responsive design with accessibility focus
-
-Security requirements:
-- No sensitive data in localStorage
-- Secure form handling with validation
-- Professional color scheme (blues, grays)
-- Loading states for all async operations
-- Error handling with user-friendly messages
-- WCAG 2.1 AA compliance
-```
-
-**Enhanced Setup:**
-```bash
-# Advanced security configuration
-cf-swarm "Configure Supabase RLS policies for fintech with role-based access"
-cf "Setup Vercel edge functions for payment processing webhooks"
-```
-
----
 
 ### 🛒 **E-commerce Platforms**
 
-**AI Workflow:**
+**Enhanced AI Workflow:**
 ```bash
-# E-commerce architecture
-cf-hive "Design scalable e-commerce platform with inventory, orders, payments"
+# E-commerce with GitHub automation
+cf-github-hive "Design verified scalable e-commerce with GitHub-integrated inventory, orders, payments"
 
-# Product catalog design
-cf-swarm "Design flexible product catalog schema with variants, categories, and search"
+# Product catalog with truth verification
+cf-verify verify product-schema --threshold 0.95
+cf-swarm "Design verified flexible product catalog with GitHub-synced inventory management"
 
-# Payment integration planning
-cf "Plan Stripe integration with Supabase webhooks and order management"
-```
-
-**Lovable Prompt Template:**
-```
-Create a modern e-commerce platform:
-- Product listing with grid/list views
-- Advanced product detail pages with image gallery
-- Shopping cart with quantity controls
-- Checkout flow with guest and registered options
-- User account with order history
-- Admin panel for inventory management
-- Search and filtering capabilities
-- Wishlist functionality
-- Mobile-optimized responsive design
-
-Design inspiration: Shopify, WooCommerce
-Features: Product variants, reviews, recommendations
-Payment: Stripe integration ready
-Style: Modern, conversion-optimized
-```
-
-**AI-Generated Features:**
-```bash
-# Complex feature implementation
-cf-swarm "Implement product recommendation engine using Supabase and AI"
-cf "Create inventory management system with automatic reorder points"
-cf "Setup order fulfillment workflow with status tracking"
+# Payment integration with GitHub webhooks
+cf "Plan verified Stripe integration with Supabase webhooks and GitHub order tracking"
 ```
 
 ---
 
-### 📱 **Social Media/Community Apps**
+## Master Prompts Library (Enhanced)
 
-**AI Workflow:**
+### **Verification-First Project Initialization**
 ```bash
-# Social platform planning
-cf-hive "Design real-time social platform with feeds, messaging, and moderation"
-
-# Real-time architecture
-cf-swarm "Design Supabase real-time subscriptions for social feeds and messaging"
-
-# Content moderation planning
-cf "Plan AI-powered content moderation system with Supabase edge functions"
+cf-swarm "I want to build [APP_DESCRIPTION] with truth verification above 95%. Please:
+1. Identify optimal tech stack with verification requirements
+2. Create detailed, verified feature specification 
+3. Design database schema with GitHub integration hooks
+4. Generate verified Lovable prompts for each component
+5. Create development roadmap with verification milestones
+6. Setup GitHub workflows for continuous verification
+7. Configure pair programming environment
+Include verified code examples and truth-checked setup instructions."
 ```
 
-**Lovable Prompt Template:**
-```
-Create a modern social media platform:
-- Dynamic feed with infinite scroll
-- User profiles with bio, followers, following
-- Post creation with image/video upload
-- Real-time messaging interface
-- Notification system
-- Search and discovery features
-- Content moderation tools
-- Mobile-first responsive design
-- Dark/light theme toggle
-
-Features: Stories, reactions, comments, shares
-Style: Instagram/Twitter inspired but unique
-Real-time: Live updates for messages and notifications
-Moderation: Report system, admin tools
-```
-
----
-
-### 🎮 **Gaming/Interactive Apps**
-
-**AI Workflow:**
+### **GitHub-Integrated Architecture Review**
 ```bash
-# Game architecture
-cf-hive "Design multiplayer game architecture with real-time state management"
-
-# Real-time game state
-cf-swarm "Design Supabase real-time game state management with conflict resolution"
+cf-github-hive "Analyze this GitHub repository architecture and optimize for:
+- Performance and scalability with GitHub Actions
+- Security and compliance with automated GitHub checks
+- Cost efficiency with GitHub-integrated monitoring
+- Developer experience with pair programming workflows  
+- User experience with GitHub-powered feature flags
+Provide verified recommendations with GitHub automation setup"
 ```
 
-**Lovable Prompt Template:**
+### **Enhanced Frontend Generation (For Lovable)**
 ```
-Create an interactive gaming platform:
-- Game lobby with room creation/joining
-- Real-time gameplay interface
-- Player profiles and statistics
-- Leaderboards and achievements
-- In-game chat system
-- Responsive controls for mobile/desktop
-- Spectator mode interface
-- Tournament/match organization tools
+Based on the verified specification, create a [APP_TYPE] with these exact requirements:
 
-Game type: [Specify: puzzle, strategy, action, etc.]
-Real-time: WebSocket-based gameplay
-Features: Rankings, profiles, social elements
-Style: Gaming-focused UI with engaging animations
-```
-
----
-
-### 🤖 **AI-Powered Applications**
-
-**AI Workflow:**
-```bash
-# AI architecture planning
-cf-hive "Design AI application with vector search, model integration, and chat interfaces"
-
-# Vector database setup
-cf-swarm "Setup pgvector in Supabase for semantic search and RAG applications"
-
-# AI integration planning
-cf-swarm "Design AI workflow with OpenAI integration and streaming responses"
-```
-
-**Lovable Prompt Template:**
-```
-Create an AI-powered application interface:
-- Chat interface with streaming responses
-- File upload for document processing
-- Knowledge base management interface
-- AI model selection and configuration
-- Usage analytics and token tracking
-- User session management
-- Advanced search with semantic capabilities
-- Admin panel for AI model management
-
-Features: RAG, vector search, multi-modal AI
-Style: Modern AI tool aesthetic (ChatGPT/Claude inspired)
-Real-time: Streaming responses, live updates
-Advanced: Model switching, prompt templates
-```
-
----
-
-## Master Prompts Library
-
-### **Project Initialization**
-```bash
-cf-swarm "I want to build [APP_DESCRIPTION]. Please:
-1. Identify the app category and optimal tech stack
-2. Create a detailed feature specification 
-3. Design the database schema with relationships
-4. Generate Lovable prompts for each major component
-5. Create a development roadmap with milestones
-6. Suggest AI enhancements and integrations
-Include specific code examples and setup instructions."
-```
-
-### **Architecture Review**
-```bash
-cf-hive "Analyze this app architecture and optimize for:
-- Performance and scalability
-- Security and compliance
-- Cost efficiency
-- Developer experience
-- User experience
-Provide specific recommendations with implementation steps"
-```
-
-### **Frontend Generation (For Lovable)**
-```
-Based on the attached specification, create a [APP_TYPE] with these exact requirements:
+VERIFICATION REQUIREMENTS:
+- Truth score above 0.95 for all generated code
+- GitHub integration hooks for development workflows
+- Pair programming collaboration indicators
+- Real-time verification status displays
 
 FEATURES:
-[Paste AI-generated feature list]
+[Paste AI-generated verified feature list]
+
+GITHUB INTEGRATION:
+- Development mode indicators
+- GitHub Actions status displays  
+- Automated deployment notifications
+- Pull request integration interfaces
+- Issue tracking components
 
 DESIGN SYSTEM:
-- Color palette: [AI-suggested colors]
-- Typography: Modern, readable font stack
-- Layout: [AI-suggested layout pattern]
-- Components: shadcn/ui or similar modern components
-- Animations: Subtle, performance-optimized
-- Responsive: Mobile-first approach
+- Color palette: [AI-verified colors]
+- Typography: Modern, accessible font stack
+- Layout: [AI-verified layout pattern]
+- Components: shadcn/ui with GitHub integration
+- Animations: Performance-verified micro-interactions
+- Responsive: Mobile-first with truth-verified breakpoints
 
 TECHNICAL REQUIREMENTS:
-- TypeScript for type safety
-- Tailwind CSS for styling
-- React Query for state management
-- Form handling with validation
-- Error boundaries and loading states
-- Accessibility (WCAG 2.1 AA)
+- TypeScript with verified type definitions
+- Tailwind CSS with GitHub theme integration
+- React Query with GitHub API integration
+- Form handling with verification feedback
+- Error boundaries with GitHub issue creation
+- Accessibility (WCAG 2.1 AA verified)
 
-INTEGRATION READY:
-- Supabase client setup
-- Authentication flows
-- Real-time subscriptions where needed
-- File upload capabilities
-- Payment integration (if e-commerce)
+VERIFICATION FEATURES:
+- Real-time truth score indicators (development only)
+- GitHub integration status displays
+- Pair programming collaboration tools
+- Automated verification feedback UI
 
-Generate clean, production-ready code with proper error handling and user feedback.
+Generate clean, production-ready code with GitHub integration and verification systems.
 ```
 
-### **Backend Setup**
+### **GitHub-Enhanced Backend Setup**
 ```bash
-cf-swarm "Setup complete Supabase backend for [APP_TYPE]:
-1. Database schema with proper relationships
-2. Row Level Security (RLS) policies
-3. Edge Functions for business logic
-4. Authentication setup with providers
-5. Storage buckets and policies
-6. Real-time subscriptions configuration
-7. Database triggers and functions
-8. API documentation
-Provide SQL scripts and setup instructions"
+cf-swarm "Setup complete GitHub-integrated Supabase backend for [APP_TYPE]:
+1. Verified database schema with GitHub sync hooks
+2. Row Level Security policies with GitHub user integration
+3. Edge Functions with GitHub webhook handlers
+4. Authentication with GitHub provider integration
+5. Storage buckets with GitHub Actions automation
+6. Real-time subscriptions with GitHub event streaming
+7. Database triggers for GitHub issue creation
+8. API documentation with GitHub Pages deployment
+9. Truth verification endpoints for development
+10. Pair programming collaboration APIs
+Provide verified SQL scripts and GitHub workflow setup"
 ```
 
-### **Full Integration**
+### **Complete Verification Integration**
 ```bash
-cf-swarm "Integrate Lovable-generated frontend with Supabase backend:
-1. Setup TypeScript types from Supabase schema
-2. Configure authentication flows
-3. Implement CRUD operations
-4. Setup real-time subscriptions
-5. Add error handling and loading states
-6. Configure Vercel deployment
-7. Setup environment variables
-8. Add monitoring and analytics
-Provide complete integration code and deployment guide"
+cf-swarm "Integrate Lovable frontend with Supabase backend using GitHub-enhanced workflow:
+1. Setup verified TypeScript types from Supabase schema
+2. Configure GitHub-integrated authentication flows
+3. Implement CRUD operations with truth verification
+4. Setup real-time subscriptions with GitHub events
+5. Add error handling with GitHub issue creation
+6. Configure Vercel deployment with GitHub Actions
+7. Setup environment variables with GitHub secrets
+8. Add monitoring with GitHub-integrated analytics
+9. Configure pair programming collaboration features
+10. Setup continuous verification with GitHub hooks
+Provide complete verified integration code and GitHub deployment guide"
 ```
 
-### **Performance Optimization**
+### **Truth-Verified Performance Optimization**
 ```bash
-cf "Optimize this app for production:
-1. Bundle size optimization
-2. Database query optimization
-3. Caching strategies
-4. CDN setup
-5. Image optimization
-6. Core Web Vitals improvements
-7. SEO optimization
-8. Performance monitoring setup"
-```
-
----
-
-## Best Practices & Troubleshooting
-
-### **AI Coordination Best Practices**
-```bash
-# Check current context (auto-loaded by Turbo-Flow)
-cf "Show current project context and progress"
-
-# Use appropriate command for task complexity
-cf-swarm "Quick task or feature implementation"     # For focused tasks
-cf-hive "Complex multi-component project planning"  # For major features
-cf "General questions and analysis"                  # For everything else
-
-# Monitor progress
-cf "Show current task status and next steps"
-```
-
-### **Common Issues & Solutions**
-
-**Lovable Integration Issues:**
-```bash
-cf-swarm "Debug this Lovable + Supabase integration issue: [ERROR_DESCRIPTION]"
-```
-
-**Supabase Schema Problems:**
-```bash
-cf-swarm "Fix this Supabase schema migration error and provide corrected SQL"
-```
-
-**Vercel Deployment Issues:**
-```bash
-cf-swarm "Resolve Vercel deployment error: [ERROR_MESSAGE]. Provide step-by-step fix"
+cf "Optimize this app for production with verification above 95%:
+1. Bundle size optimization with GitHub monitoring
+2. Database query optimization with verified performance
+3. Caching strategies with GitHub-integrated CDN
+4. Image optimization with GitHub Actions
+5. Core Web Vitals improvements with verified metrics
+6. SEO optimization with GitHub Pages integration
+7. Performance monitoring with GitHub analytics
+8. Continuous verification of optimization results"
 ```
 
 ---
 
-## The Complete App Development Command
+## Enhanced Best Practices & Troubleshooting
 
-For maximum AI coordination on complex projects:
+### **Verification-First AI Coordination**
+```bash
+# Check verification status before proceeding
+cf-truth
+cf-verify status
+
+# Resume with verification upgrade
+cf-resume session-xxxxx-xxxxx --add-verification
+
+# Use appropriate command for task complexity with verification
+cf-swarm "Quick verified task implementation"           # Focused with verification
+cf-github-hive "Complex GitHub-integrated planning"     # Major features with GitHub
+cf-pair --start "Collaborative verified development"    # Pair programming
+cf-dsp "Direct Claude access without context"          # Quick commands
+
+# Monitor verification progress
+cf-truth --live --threshold-alerts
+cf "Show verification status and next steps"
+```
+
+### **GitHub Integration Issues**
+```bash
+# Debug GitHub integration with verification
+cf-swarm "Debug this GitHub + Supabase integration with truth verification: [ERROR]"
+
+# Fix GitHub workflow issues
+npx claude-flow@alpha github workflow-manager repair --auto-heal
+
+# Upgrade legacy projects to GitHub integration
+npx claude-flow@alpha github migrate-existing --from-local-git --verify
+```
+
+### **Truth Verification Troubleshooting**
+```bash
+# Check verification system status
+cf-verify status --detailed
+
+# Analyze verification failures
+cf-truth --analyze --failure-patterns
+
+# Repair verification system
+npx claude-flow@alpha verify init strict --repair-existing
+```
+
+---
+
+## The Complete Verified App Development Command
+
+For maximum AI coordination with truth verification on complex projects:
 
 ```bash
-cf-hive "Build complete [APP_TYPE] application:
-1. Research optimal architecture
-2. Generate Lovable prompts for frontend
-3. Design Supabase schema with RLS
-4. Create integration code
-5. Setup Vercel deployment
-6. Add monitoring and analytics
-7. Generate documentation
-8. Create testing strategy
+cf-github-hive "Build complete verified [APP_TYPE] application with 95% truth threshold:
+1. Research and verify optimal architecture with GitHub integration
+2. Generate verified Lovable prompts with GitHub hooks
+3. Design verified Supabase schema with GitHub automation  
+4. Create verified integration code with pair programming
+5. Setup GitHub-enhanced Vercel deployment pipeline
+6. Add continuous verification and monitoring
+7. Generate verified documentation with GitHub Pages
+8. Create verified testing strategy with GitHub Actions
+9. Setup truth verification monitoring dashboard
+10. Configure pair programming collaboration environment
 
 App Requirements: [DETAILED_DESCRIPTION]
 Target Users: [USER_DESCRIPTION]  
 Key Features: [FEATURE_LIST]
 Timeline: [DEVELOPMENT_TIMELINE]
+Verification Threshold: 95%
+GitHub Integration: Full automation required
+Pair Programming: Collaborative development enabled
 
-Provide complete deliverables with step-by-step implementation guide"
+Provide complete verified deliverables with GitHub-integrated implementation guide"
 ```
 
 ---
 
-## Development Metrics
+## Enhanced Development Metrics
 
-### **Track Your Progress**
+### **Verification Tracking**
 ```bash
-# Monitor development progress
-cf "Show project stats and current progress"
-cf "Generate development progress report"
+# Monitor verification metrics
+cf-truth --dashboard --real-time
+cf-verify validate --continuous
 
-# Analyze successful patterns
-cf "Analyze successful workflows and suggest improvements"
+# Track GitHub integration health
+npx claude-flow@alpha github dashboard --performance-metrics
+
+# Analyze successful patterns with verification
+cf "Analyze successful verified workflows and suggest improvements"
 ```
 
-### **Key Performance Indicators**
-- **Development Speed**: Time from idea to deployed MVP
-- **Code Quality**: Generated code quality and maintainability
-- **Feature Completeness**: Requirements satisfaction rate
-- **Bug Rate**: Issues per AI-generated feature
-- **User Satisfaction**: End-user feedback on final product
+### **Enhanced Key Performance Indicators**
+- **Truth Accuracy Rate**: >95% (mandatory for production)
+- **GitHub Integration Success**: >90% automation coverage
+- **Development Speed**: Time from verified idea to deployed MVP
+- **Code Quality**: AI-generated code with verification scores
+- **Feature Completeness**: Verified requirements satisfaction
+- **Bug Rate**: Issues per verified AI-generated feature
+- **Pair Programming Efficiency**: Collaborative development metrics
 
 ---
 
-## Realistic Expectations
+## Updated Realistic Expectations
 
-### **What This Stack Excels At:**
-- Rapid prototyping and MVP development
-- Standardized CRUD applications
-- Modern UI/UX generation
-- Database schema design
-- Integration boilerplate
+### **What This Enhanced Stack Excels At:**
+- **Verified rapid prototyping** with 95% accuracy requirements
+- **GitHub-integrated development** with automated workflows
+- **Truth-verified code generation** with continuous validation
+- **Pair programming workflows** with real-time collaboration
+- **Automated compliance checking** with GitHub audit trails
+- **Continuous verification** throughout development lifecycle
+
+### **Enhanced Capabilities:**
+- **Truth Verification**: 95% accuracy threshold enforcement
+- **Pair Programming**: Real-time collaborative development
+- **GitHub Integration**: 13 specialized agents for repository automation
+- **Background Monitoring**: Continuous validation and health checks
+- **Legacy Migration**: Upgrade existing projects to new capabilities
+- **Byzantine Fault Tolerance**: Protection against incorrect AI decisions
 
 ### **Current Limitations:**
-- **Cost**: Heavy AI usage can add up ($50-200/month for active development)
-- **Learning Curve**: 1-2 weeks to master the coordination patterns
-- **Complex Logic**: Custom business logic still requires manual coding
-- **Debugging**: AI-generated code may need human debugging
-- **Context Limits**: Very large codebases may exceed AI context windows
+- **Enhanced Cost**: Verification and GitHub integration adds 20-30% to AI usage costs
+- **Learning Curve**: 2-3 weeks to master verification patterns and GitHub integration
+- **Verification Overhead**: 5-10% performance impact during development
+- **Complex Legacy Integration**: May require manual migration steps
 
-### **When to Use Traditional Development:**
-- Legacy system integration
-- Highly specialized algorithms
-- Performance-critical applications
-- Regulatory compliance requirements
-- Very large enterprise applications
+### **When to Use Enhanced Features:**
+- Production applications requiring high reliability
+- Team collaboration requiring pair programming
+- GitHub-centric development workflows
+- Applications requiring audit trails and compliance
+- Complex projects benefiting from truth verification
 
 ---
 
-## Quick Start Checklist
+## Quick Start Checklist (Enhanced)
 
 - [ ] Setup Turbo-Flow Claude DevPod environment
-- [ ] Create Supabase project and configure API keys
-- [ ] Setup Vercel account and deployment pipeline
-- [ ] Test AI coordination with simple project
-- [ ] Generate first Lovable prototype
-- [ ] Deploy and integrate components
-- [ ] Iterate based on results
+- [ ] Install Claude-Flow Alpha.88 with verification
+- [ ] Configure GitHub integration with 13 specialized agents
+- [ ] Create Supabase project with GitHub webhook integration
+- [ ] Setup Vercel with GitHub Actions deployment
+- [ ] Test verification system with simple project
+- [ ] Initialize pair programming environment
+- [ ] Generate first verified Lovable prototype
+- [ ] Deploy with GitHub automation and monitoring
+- [ ] Verify truth scores above 95% threshold
 
-**Remember**: This is about augmenting your development process with AI, not replacing your expertise. The AI handles routine implementation while you focus on architecture, user experience, and business value.
+**Remember**: This enhanced stack emphasizes verification and GitHub integration while augmenting your development process. The AI handles routine implementation with truth verification while you focus on architecture, user experience, and business value.
 
 ---
 
-**Bottom Line**: This stack can significantly accelerate development for standard web applications. Results will vary based on project complexity and your familiarity with the tools. Start with simple projects to build confidence before tackling complex applications.
+**Enhanced Bottom Line**: This verification-enhanced stack with GitHub integration significantly accelerates development for production-ready applications. The truth verification system ensures 95% accuracy while GitHub integration automates workflows. Start with verified simple projects to build confidence before tackling complex applications with pair programming workflows.
