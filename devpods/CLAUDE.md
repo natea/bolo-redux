@@ -2,7 +2,7 @@
 
 ## 🚨 CRITICAL: VERIFICATION-FIRST DEVELOPMENT
 
-This project enforces **"truth is enforced, not assumed"** with mandatory verification for all operations.
+This project enforces **"truth is enforced, not assumed"** with manstdatory verification for all operations.
 
 ### Truth Verification System
 - **Threshold**: 0.95 (95% accuracy required for production)
@@ -115,7 +115,7 @@ npx claude-flow@alpha github pr-manager setup \
   
   // Use Task tool with loaded agent instructions
   Task("Doc Planning", "Follow doc-planner methodology to create comprehensive plan", "planner")
-  Task("Microtask Breakdown", "Follow microtask-breakdown methodology for atomic tasks", "analyst")
+  Task("Microtask Breakdown", "Follow microtask-breakdown methodology for atomic tasks", "planner")
   
   // Specialized agents for implementation
   Task("Backend Development", "Build REST API with authentication. Coordinate via hooks.", "backend-dev")
