@@ -31,3 +31,5 @@ yes | bash "$DEVPODS_DIR/post-setup.sh" || true
 yes | bash "$DEVPODS_DIR/tmux-workspace.sh" || true
 
 echo "✅ Setup complete in workspace: $WORKSPACE_FOLDER"
+
+tmux attach-session -t workspace
