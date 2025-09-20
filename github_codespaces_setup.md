@@ -2,7 +2,7 @@
 
 ## ⚡ Quick Setup Methods
 
-### **Method 1: GitHub Dev Container (Recommended)**
+### GitHub Codespace Dev Container **
 
 After the codespace books up, run this command:
 
