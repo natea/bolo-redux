@@ -6,7 +6,9 @@
         "ghcr.io/devcontainers/features/rust:1": {
             "version": "1.70"
         },
-        "ghcr.io/devcontainers/features/docker-in-docker:2": {},
+        "ghcr.io/devcontainers/features/docker-in-docker:2": {
+            "moby": false
+        },
         "ghcr.io/devcontainers/features/node:1": {}
     },
     "containerEnv": {
