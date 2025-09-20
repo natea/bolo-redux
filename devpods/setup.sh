@@ -179,7 +179,7 @@ fi
 # Create dsp alias for claude --dangerously-skip-permissions
 echo 'alias dsp="claude --dangerously-skip-permissions"' >> ~/.bashrc
 
-# 🔧 Create Claude Flow context wrapper script - FIXED VERSION
+# 🔧 Create Claude Flow context wrapper script
 echo "🔧 Creating Claude Flow context wrapper..."
 cat << 'WRAPPER_EOF' > cf-with-context.sh
 #!/bin/bash
@@ -214,34 +214,21 @@ load_context() {
 # Check command type and execute with context
 case "$1" in
     "swarm")
-        # Swarm launches Claude Code which needs direct terminal access
-        # Don't pipe stdin - let it have full terminal control
-        echo "🚀 Launching Claude Code Swarm..."
-        echo "📄 Note: Context files (CLAUDE.md, agents) will be loaded from working directory"
-        npx claude-flow@alpha swarm "${@:2}" --claude
+        npx claude-flow@alpha swarm "${@:2}" --claude <<< "$(load_context)"
         ;;
-        
     "hive-mind"|"hive")
-        # hive-mind also needs direct terminal access
+        # hive-mind doesn't like stdin input, so don't use heredoc
         echo "🚀 Running Claude Flow hive-mind..."
         if [[ "$2" == "spawn" ]]; then
             npx claude-flow@alpha hive-mind spawn "${@:3}" --claude
         else
+            # Handle cf-hive case where args come after hive-mind
             npx claude-flow@alpha hive-mind spawn "${@:2}" --claude
         fi
         ;;
-        
-    "pair"|"verify"|"truth")
-        # These interactive commands also need terminal access
-        echo "🚀 Running Claude Flow $1..."
-        npx claude-flow@alpha "$@" --claude
-        ;;
-        
     *)
-        # For other commands, check if they might be interactive
         if [[ $# -gt 0 ]]; then
-            # Just run directly without stdin redirection to be safe
-            npx claude-flow@alpha "$@" --claude
+            npx claude-flow@alpha "$@" --claude <<< "$(load_context)"
         else
             npx claude-flow@alpha --help
         fi
@@ -280,4 +267,3 @@ echo "🎯 Environment is now 100% production-ready!"
 echo "✅ TypeScript ES module configuration fixed"
 echo "✅ Playwright tests configured with proper imports"
 echo "✅ DSP alias configured"
-echo "✅ Claude Flow wrapper fixed for interactive commands"
