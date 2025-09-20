@@ -259,8 +259,8 @@ echo "Claude-monitor: $(which claude-monitor && echo '✓' || echo '✗')"
 - [Claude Flow SPARC](https://github.com/ruvnet/claude-flow) by Reuven Cohen
 - [610ClaudeSubagents](https://github.com/ChrisRoyse/610ClaudeSubagents) by Christopher Royse
 - [Claude Monitor](https://github.com/Maciek-roboblog/Claude-Code-Usage-Monitor) by Maciek-roboblog
-- [Turbo Flow Aliases](https://github.com/marcuspat/turbo-flow-claude/blob/main/claude-flow-aliases-guide.md)
-- [Github Codespaces Setup](https://github.com/marcuspat/turbo-flow-claude/blob/main/github_codespaces_setup.md)
+- [Turbo Flow Aliases Guide](https://github.com/marcuspat/turbo-flow-claude/blob/main/claude-flow-aliases-guide.md)
+- [Github Codespaces Setup Guide](https://github.com/marcuspat/turbo-flow-claude/blob/main/github_codespaces_setup.md)
 
 ---
 
