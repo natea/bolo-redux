@@ -1,13 +1,16 @@
 # 🚀 Turbo-Flow Claude v1.0.1 Alpha: 
 # Advanced Agentic Development Environment
 
-**Supporting Devpods, Github Codespaces, and more! Features 600+ AI agents, SPARC methodology, and automatic context loading!**
+**Supporting Devpods, Github Codespaces, and more!**
+
+**Features 600+ AI agents, Claude Flow, SPARC methodology, and automatic context loading!**
+
 
 [![DevPod](https://img.shields.io/badge/DevPod-Ready-blue?style=flat-square)](https://devpod.sh) [![Claude Flow](https://img.shields.io/badge/Claude%20Flow-SPARC-purple?style=flat-square)](https://github.com/ruvnet/claude-flow) [![Agents](https://img.shields.io/badge/Agents-600+-green?style=flat-square)](https://github.com/ChrisRoyse/610ClaudeSubagents)
 
 ---
 
-## ⚡ Quick Start
+## ⚡ Quick Start Devpods
 
 ```bash
 # 1. Install DevPod
@@ -15,11 +18,24 @@ brew install loft-sh/devpod/devpod  # macOS
 # Windows: choco install devpod
 # Linux: curl -L -o devpod "https://github.com/loft-sh/devpod/releases/latest/download/devpod-linux-amd64" && sudo install devpod /usr/local/bin
 
-# 2. Launch workspace
+# 2. Setup Devpod provider and configuration.
+
+# 3. Launch workspace
 devpod up https://github.com/marcuspat/turbo-flow-claude --ide vscode
 ```
 
 That's it! You now have a cloud development environment ready to use.
+
+---
+
+## ⚡ Quick Start Codespaces
+
+```bash
+
+# 1. Go to your GitHub repository - Click Code → Codespaces → Configure dev container (dropdown menu)
+# 2. Paste the contents of devpods/codespace.devcontainer.json into your configuration
+# 3. Commit to main branch
+# 4. Create a new Codespace - setup runs automatically!
 
 ---
 
