@@ -1,6 +1,5 @@
 # 🚀 Turbo-Flow Claude v1.0.1 Alpha: 
-
-**Advanced Agentic Development Environment**
+# Advanced Agentic Development Environment
 
 **Supporting Devpods, Github Codespaces, and more! Features 600+ AI agents, SPARC methodology, and automatic context loading**
 
