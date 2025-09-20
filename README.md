@@ -14,7 +14,7 @@
 
 ```bash
 # 1. Install DevPod
-brew install loft-sh/devpod/devpod  # macOS
+# macOS: brew install loft-sh/devpod/devpod 
 # Windows: choco install devpod
 # Linux: curl -L -o devpod "https://github.com/loft-sh/devpod/releases/latest/download/devpod-linux-amd64" && sudo install devpod /usr/local/bin
 
