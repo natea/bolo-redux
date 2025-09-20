@@ -4,18 +4,12 @@
 
 ### **Method 1: GitHub Dev Container (Recommended)**
 
-**For new Codespaces:**
-1. Go to your GitHub repository
-2. Click **Code** → **Codespaces** → **Configure dev container** (dropdown menu)
-3. Paste the contents of `devpods/codespace.devcontainer.json` into your configuration
-4. Commit to main branch
-5. Create a new Codespace - setup runs automatically!
+After the codespace books up, run this command:
 
-> **Note:** Once the devcontainer is added to your repo's main branch, all future Codespaces will automatically run the setup. Just go back to your repo's main page and launch a Codespace to watch the magic happen!
-
-### **Method 2: Manual Setup (Existing Codespaces)**
-
-If you already have a Codespace running, use the `boot_codespace.sh` script from the devpods directory:
+```bash
+touch boot.sh && chmod +x boot.sh && vi boot.sh
+```
+Then paste in the script below and run to finish setting up Turbo flow in Github Codespaces
 
 ```bash
 #!/bin/bash
@@ -53,17 +47,6 @@ echo "Running codespace_setup.sh..."
 
 echo "Script completed!"
 ```
-
-**To use:**
-```bash
-# Save as boot_codespace.sh and run
-chmod +x boot_codespace.sh
-./boot_codespace.sh
-
-# Then connect to tmux
-tmux attach -t workspace
-```
-
 ---
 
 ## 📁 What Gets Installed
