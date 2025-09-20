@@ -36,11 +36,12 @@ That's it! You now have a cloud development environment ready to use.
 # 2. Paste the contents of devpods/codespace.devcontainer.json into your configuration
 # 3. Commit to main branch
 # 4. Create a new Codespace - setup runs automatically!
-
+```
 ---
 
 ## 🔧 The Magic: Automatic Context Loading
 
+```bash
 After setup, use these **enhanced commands** that automatically load context files:
 
 ### 🎯 **Main Commands**
