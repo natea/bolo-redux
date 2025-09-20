@@ -32,10 +32,9 @@ That's it! You now have a cloud development environment ready to use.
 
 ```bash
 
-# 1. Go to your GitHub repository - Click Code → Codespaces → Configure dev container (dropdown menu)
-# 2. Create a new Codespace - setup runs automatically!
-# 3. Launch the Codespace in VS Code.
-# 4. Upload the Codespace Boot Script and Run Script.
+# 1. Create a new Codespace
+# 2. Launch the Codespace in VS Code.
+# 3. Upload the Codespace Boot Script and Run Script.
 
 See the github_codespaces_setup.md in the root of this project.
 ```
