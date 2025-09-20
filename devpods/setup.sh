@@ -419,7 +419,7 @@ echo "🚀 Quick start: 'cf-init' then 'cf-swarm \"your task\"'"
 ALIASES_EOF
 
 # Source the updated bashrc
-source ~/.bashrc
+#source ~/.bashrc
 
 echo "🎉 Claude-Flow v2.0.0 aliases have been installed!"
 echo "✨ New features available:"
