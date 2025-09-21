@@ -1,330 +1,311 @@
-# 🚀 Turbo-Flow Claude v1.0.1 Alpha: 
-# Advanced Agentic Development Environment
+# Bolo Tank Game - WebSocket Server
 
-**Supporting Devpods, Github Codespaces, and more!**
+A real-time multiplayer tank battle game server built with Node.js, Socket.IO, and modern WebSocket technology.
 
-**Features 600+ AI agents, Claude Flow, SPARC methodology, and automatic context loading!**
+## Features
 
+### Core Functionality
+- **Real-time Multiplayer**: WebSocket-based communication for instant game updates
+- **Room/Lobby System**: Create and join game rooms with customizable settings
+- **Player Management**: Authentication, session management, and player statistics
+- **Physics Engine**: Realistic tank movement, bullet trajectories, and collision detection
+- **Terrain System**: Destructible terrain with procedural generation
+- **Game Modes**: Multiple game modes including classic and last-tank-standing
 
-[![DevPod](https://img.shields.io/badge/DevPod-Ready-blue?style=flat-square)](https://devpod.sh) [![Claude Flow](https://img.shields.io/badge/Claude%20Flow-SPARC-purple?style=flat-square)](https://github.com/ruvnet/claude-flow) [![Agents](https://img.shields.io/badge/Agents-600+-green?style=flat-square)](https://github.com/ChrisRoyse/610ClaudeSubagents)
+### Technical Features
+- **Scalable Architecture**: Modular design with separated concerns
+- **Input Validation**: Comprehensive validation using Joi schemas
+- **Rate Limiting**: Protection against spam and abuse
+- **Performance Monitoring**: Built-in performance tracking and bottleneck detection
+- **Comprehensive Logging**: Winston-based logging with different levels and outputs
+- **Error Handling**: Robust error handling with graceful degradation
 
----
+## Architecture
 
-## ⚡ Quick Start Devpods
+```
+src/server/
+├── server.js                 # Main server entry point
+├── game/
+│   ├── GameManager.js        # Manages all games and rooms
+│   ├── Game.js              # Individual game instance logic
+│   ├── Room.js              # Room/lobby management
+│   ├── entities/
+│   │   ├── Tank.js          # Tank entity with movement and combat
+│   │   └── Bullet.js        # Bullet entity with physics
+│   ├── physics/
+│   │   ├── PhysicsEngine.js # Physics calculations and updates
+│   │   └── CollisionDetector.js # Collision detection algorithms
+│   └── terrain/
+│       └── TerrainGenerator.js # Procedural terrain generation
+├── players/
+│   ├── PlayerManager.js     # Player session management
+│   └── Player.js           # Individual player state and statistics
+├── validation/
+│   └── validators.js       # Input validation schemas and functions
+└── utils/
+    └── logger.js          # Logging configuration and utilities
+```
 
+## WebSocket API
+
+### Client Events
+
+#### Player Management
+```javascript
+// Join the game
+socket.emit('player:join', {
+  name: 'PlayerName',
+  avatar: 'default',
+  color: '#FF0000'
+});
+
+// Response
+socket.on('player:joined', (data) => {
+  console.log(data.playerId, data.availableRooms);
+});
+```
+
+#### Room Management
+```javascript
+// Create a room
+socket.emit('room:create', {
+  name: 'My Room',
+  maxPlayers: 8,
+  gameMode: 'classic',
+  mapName: 'default'
+});
+
+// Join a room
+socket.emit('room:join', {
+  roomId: 'room-uuid'
+});
+
+// Start a game (host only)
+socket.emit('game:start', {});
+```
+
+#### Game Actions
+```javascript
+// Tank movement
+socket.emit('tank:move', {
+  type: 'move_left', // move_left, move_right, stop
+  timestamp: Date.now()
+});
+
+// Turret rotation
+socket.emit('tank:move', {
+  type: 'rotate_turret',
+  delta: 0.1, // Rotation amount
+  timestamp: Date.now()
+});
+
+// Shooting
+socket.emit('tank:shoot', {
+  type: 'shoot',
+  power: 75, // 10-100
+  weaponType: 'standard', // standard, heavy, light
+  timestamp: Date.now()
+});
+```
+
+### Server Events
+
+#### Game State Updates
+```javascript
+// Game started
+socket.on('game:started', (data) => {
+  console.log(data.gameState, data.tanks, data.terrain);
+});
+
+// Real-time updates (60 FPS)
+socket.on('game:update', (data) => {
+  console.log(data.bullets, data.collisions, data.destroyed);
+});
+
+// Tank movements
+socket.on('tank:moved', (data) => {
+  console.log(data.playerId, data.position, data.rotation);
+});
+
+// Bullet creation
+socket.on('bullet:created', (data) => {
+  console.log(data.bulletId, data.position, data.velocity);
+});
+```
+
+#### Room Updates
+```javascript
+// Player joined room
+socket.on('player:joined_room', (data) => {
+  console.log(data.playerId, data.playerName);
+});
+
+// New room available
+socket.on('room:available', (data) => {
+  console.log(data.roomId, data.roomName, data.playerCount);
+});
+```
+
+## Game Mechanics
+
+### Tank System
+- **Movement**: Horizontal movement with physics-based acceleration and friction
+- **Rotation**: Tank body and turret can rotate independently
+- **Health**: 100 HP with damage calculation based on weapon type and impact
+- **Respawn**: Automatic respawn after 5 seconds with invulnerability period
+
+### Physics Engine
+- **Gravity**: Affects both tanks and bullets
+- **Collision Detection**: AABB and precise collision detection
+- **Terrain Interaction**: Tanks conform to terrain slopes, bullets create craters
+- **Ballistics**: Realistic bullet trajectories with air resistance
+
+### Weapon Types
+- **Standard**: Balanced damage and explosion radius
+- **Heavy**: High damage, large explosion, slow reload
+- **Light**: Low damage, small explosion, fast reload
+
+### Terrain System
+- **Procedural Generation**: Multiple map types (plains, mountains, canyon)
+- **Destructible**: Explosions create permanent craters
+- **Collision**: Pixel-perfect collision detection with terrain
+
+## Configuration
+
+### Environment Variables
 ```bash
-# 1. Install DevPod
-# macOS: brew install loft-sh/devpod/devpod 
-# Windows: choco install devpod
-# Linux: curl -L -o devpod "https://github.com/loft-sh/devpod/releases/latest/download/devpod-linux-amd64" && sudo install devpod /usr/local/bin
-
-# 2. Setup Devpod provider and configuration.
-
-# 3. Launch workspace
-devpod up https://github.com/marcuspat/turbo-flow-claude --ide vscode
+PORT=3001                    # Server port
+LOG_LEVEL=info              # Logging level (error, warn, info, debug)
+ALLOWED_ORIGINS=http://localhost:3000,http://localhost:5173  # CORS origins
 ```
 
-That's it! You now have a cloud development environment ready to use.
+### Game Settings
+```javascript
+const settings = {
+  mapWidth: 2000,           // Map width in pixels
+  mapHeight: 1500,          // Map height in pixels
+  gravity: 0.5,             // Gravity strength
+  maxBullets: 50,           // Maximum bullets per game
+  respawnTime: 5000         // Respawn delay in milliseconds
+};
+```
 
----
+## Installation & Setup
 
-## ⚡ Quick Start Codespaces
+1. **Install Dependencies**
+   ```bash
+   cd src/server
+   npm install
+   ```
 
+2. **Start Development Server**
+   ```bash
+   npm run dev
+   ```
+
+3. **Run Tests**
+   ```bash
+   npm test
+   ```
+
+4. **Start Production Server**
+   ```bash
+   npm start
+   ```
+
+## API Endpoints
+
+### Health Check
+```
+GET /health
+```
+Returns server status, uptime, and active game statistics.
+
+### Game Statistics
+```
+GET /api/stats
+```
+Returns detailed statistics about games and players.
+
+## Performance Features
+
+### Rate Limiting
+- **Movement**: 30 actions per second per player
+- **Shooting**: 1 shot per second per player
+- **Chat**: 10 messages per minute per player
+
+### Optimizations
+- **Game Loop**: 60 FPS physics updates with delta time
+- **Collision Detection**: Spatial partitioning for large games
+- **Memory Management**: Automatic cleanup of disconnected players and finished games
+- **Message Batching**: Efficient WebSocket message handling
+
+## Security Features
+
+- **Input Validation**: All client inputs validated with Joi schemas
+- **Rate Limiting**: Protection against spam and DOS attacks
+- **CORS Configuration**: Configurable allowed origins
+- **Sanitization**: Input sanitization to prevent XSS
+- **Error Handling**: Secure error messages that don't leak system information
+
+## Monitoring & Logging
+
+### Log Levels
+- **Error**: Critical errors and exceptions
+- **Warn**: Performance issues and security events
+- **Info**: Game events and player activities
+- **Debug**: Detailed technical information
+
+### Performance Monitoring
+- **Operation Timing**: Automatic timing of critical operations
+- **Memory Usage**: Tracking of memory consumption
+- **Connection Count**: Active connection monitoring
+- **Game Statistics**: Real-time game performance metrics
+
+## Testing
+
+The server includes comprehensive test coverage:
+- **Unit Tests**: Individual component testing
+- **Integration Tests**: WebSocket communication testing
+- **Performance Tests**: Load testing and benchmarking
+- **Security Tests**: Input validation and rate limiting
+
+Run tests with:
 ```bash
-
-# 1. Create a new Codespace
-# 2. Launch the Codespace in VS Code.
-# 3. Upload the Codespace Boot Script and Run Script.
-
-See the github_codespaces_setup.md in the root of this project.
-```
----
-
-## 🔧 The Magic: Automatic Context Loading
-
-```bash
-After setup, use these **enhanced commands** that automatically load context files:
-
-### 🎯 **Main Commands**
-```bash
-cf-swarm "build a tic-tac-toe game"    # Swarm with auto-loaded context
-cf-hive "create a REST API"            # Hive-mind with auto-loaded context  
-cf "memory stats"                      # Any Claude Flow command with context
-dsp                                    # claude --dangerously-skip-permissions
+npm test
+npm run test:watch    # Watch mode
+npm run test:coverage # Coverage report
 ```
 
-### 🤖 **What Gets Auto-Loaded**
-- **CLAUDE.md** - Development rules and patterns
-- **doc-planner.md** - Planning agent (SPARC methodology)
-- **microtask-breakdown.md** - Task decomposition agent
-- **Agent Library** - Info about 600+ available agents
+## Deployment
 
-### 🔄 **Before vs After**
-```bash
-# ❌ OLD WAY
-(cat CLAUDE.md && cat agents/doc-planner.md && cat agents/microtask-breakdown.md) | npx claude-flow@alpha swarm "build game" --claude
+### Production Checklist
+- [ ] Set appropriate LOG_LEVEL (warn or error)
+- [ ] Configure CORS origins for production domains
+- [ ] Set up SSL/TLS termination
+- [ ] Configure load balancing for multiple instances
+- [ ] Set up log aggregation
+- [ ] Configure monitoring and alerting
 
-# ✅ NEW WAY
-cf-swarm "build game"
+### Docker Support
+```dockerfile
+FROM node:18-alpine
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci --only=production
+COPY . .
+EXPOSE 3001
+CMD ["npm", "start"]
 ```
 
----
+## Contributing
 
-## 🎯 Usage Examples
+1. Follow the existing code style and architecture patterns
+2. Add tests for new features
+3. Update documentation for API changes
+4. Use semantic commit messages
+5. Ensure all tests pass before submitting
 
-```bash
-# 🎮 Game development
-cf-swarm "build a multiplayer tic-tac-toe with real-time updates"
+## License
 
-# 🌐 Web development  
-cf-hive "create a full-stack blog with authentication and admin panel"
-
-# 🔍 Analysis tasks
-cf "analyze this codebase and suggest improvements"
-
-# 📊 Agent discovery
-cf-swarm "First discover relevant agents with 'find agents/ -name \"*game*\"' then build a space invaders game"
-```
-
----
-
-## 🌟 What's Included
-
-### 🔥 **Core Features**
-- **600+ AI Agents** - From [610ClaudeSubagents](https://github.com/ChrisRoyse/610ClaudeSubagents) + custom additions
-- **SPARC Methodology** - Systematic development workflow
-- **Automatic Context Loading** - No more manual file piping
-- **Claude Flow Integration** - Advanced AI orchestration
-- **Playwright Integration** - Visual verification for UI work
-- **Advanced Monitoring** - Usage tracking with [Claude Monitor](https://github.com/Maciek-roboblog/Claude-Code-Usage-Monitor)
-
-### 🛠️ **Development Tools**
-- **Claude Code CLI** - Official Claude development tools
-- **Docker-in-Docker** - Container development support
-- **Node.js & TypeScript** - Modern JavaScript development
-- **Playwright** - Automated testing and screenshots
-- **tmux Workspace** - 4-window terminal setup
-
----
-
-## 🚀 Setup Options
-
-### 🎯 **Option 1: Standalone Workspace (Recommended)**
-```bash
-devpod up https://github.com/marcuspat/turbo-flow-claude --ide vscode
-```
-Perfect for new projects or dedicated Claude development.
-
-### 🔄 **Option 2: Add to Existing Project**
-```bash
-# Clone configuration
-git clone https://github.com/marcuspat/turbo-flow-claude claude-config
-
-# Copy to your project
-cp -r claude-config/.devcontainer ./
-cp -r claude-config/devpods ./
-
-# Launch
-devpod up . --ide vscode
-```
-
----
-
-## 🌍 Cloud Provider Setup
-
-Choose your preferred cloud provider:
-
-### 🌊 **DigitalOcean (Recommended)**
-```bash
-devpod provider add digitalocean
-devpod provider use digitalocean
-devpod provider update digitalocean --option DIGITALOCEAN_ACCESS_TOKEN=your_token
-devpod provider update digitalocean --option DROPLET_SIZE=s-4vcpu-8gb  # $48/month
-```
-
-### ☁️ **AWS**
-```bash
-devpod provider add aws
-devpod provider use aws
-devpod provider update aws --option AWS_INSTANCE_TYPE=t3.medium  # $30/month
-```
-
-### 🔵 **Azure** | 🌥️ **GCP** | 🏢 **Rackspace** | 🖥️ **Local Docker**
-See [full provider setup guide](#provider-configuration) below.
-
----
-
-## 🖥️ What Happens After Setup
-
-### 🔄 **Automatic Installation**
-- Installs Claude Code, Claude Flow, and 600+ agents
-- Sets up tmux workspace with 4 windows
-- Configures automatic context loading
-- Installs development tools (Playwright, TypeScript, etc.)
-
-### 🖥️ **tmux Workspace**
-- **Window 0**: Primary Claude workspace
-- **Window 1**: Secondary Claude workspace
-- **Window 2**: Claude usage monitor
-- **Window 3**: System monitor (htop)
-
-Access with: `tmux attach -t workspace`
-
----
-
-## 🎯 Complete Prompting Examples
-
-### 🌟 **Master Pattern**
-Always include this for maximum effectiveness:
-```
-"Identify all subagents that could be useful for this task and utilize the claude-flow hivemind to maximize your ability to accomplish the task."
-```
-
-### 🚀 **Full Project Development**
-```
-"I need to build a REST API for a todo application. Look in agents/ and:
-1. Identify all useful subagents for this task
-2. Create a complete development plan with visualizations
-3. Utilize claude-flow hivemind to maximize our ability
-4. Chain agents for planning, implementation, testing, deployment"
-```
-
-### 🏗️ **Infrastructure Project**
-```
-"Research using Kubernetes to deploy LLM services. Put output in research/ folder.
-- Draw from YouTube transcripts, GitHub repos, blog posts
-- Spawn 5 agents to work concurrently
-- Keep iterating until clear implementation path exists"
-```
-
----
-
-## 📁 File Structure
-
-After setup:
-```
-/workspaces/turbo-flow-claude/
-├── 🤖 agents/              # 600+ AI agents
-├── 📋 CLAUDE.md            # Development rules
-├── 📋 FEEDCLAUDE.md        # Streamlined instructions
-├── ⚡ claude-flow          # SPARC workflow tools
-├── 🔧 cf-with-context.sh   # Context loading wrapper
-└── 📁 [your project files]
-```
-
----
-
-## 🎛️ Management Commands
-
-```bash
-# Create/delete workspace
-devpod up https://github.com/marcuspat/turbo-flow-claude --ide vscode
-devpod delete turbo-flow-claude --force
-
-# Start/stop (saves money)
-devpod stop turbo-flow-claude      # Stop billing
-devpod up turbo-flow-claude --ide vscode  # Resume
-
-# List workspaces
-devpod list
-```
-
----
-
-## 🔧 Troubleshooting
-
-### 🔐 **Permission Issues**
-```bash
-sudo chown -R $(whoami):staff ~/.devpod && \
-find ~/.devpod -type d -exec chmod 755 {} \; && \
-find ~/.devpod -name "*provider*" -type f -exec chmod +x {} \;
-```
-
-### 🔗 **Connection Issues**
-```bash
-killall "Code"  # Close VSCode
-devpod up turbo-flow-claude --ide vscode  # Retry
-```
-
-### ✅ **Verify Installation**
-```bash
-echo "Agents: $(ls -1 /workspaces/turbo-flow-claude/agents/*.md 2>/dev/null | wc -l)"
-echo "Claude-code: $(which claude && echo '✓' || echo '✗')"
-echo "Claude-monitor: $(which claude-monitor && echo '✓' || echo '✗')"
-```
-
----
-
-## 📚 Resources
-
-- [DevPod Documentation](https://devpod.sh/docs)
-- [Claude Flow SPARC](https://github.com/ruvnet/claude-flow) by Reuven Cohen
-- [610ClaudeSubagents](https://github.com/ChrisRoyse/610ClaudeSubagents) by Christopher Royse
-- [Claude Monitor](https://github.com/Maciek-roboblog/Claude-Code-Usage-Monitor) by Maciek-roboblog
-- [Turbo Flow Aliases Guide](https://github.com/marcuspat/turbo-flow-claude/blob/main/claude-flow-aliases-guide.md)
-- [Github Codespaces Setup Guide](https://github.com/marcuspat/turbo-flow-claude/blob/main/github_codespaces_setup.md)
-
----
-
-## 📦 Detailed Provider Configuration
-
-<details>
-<summary>Click to expand full provider setup instructions</summary>
-
-### 🌊 **DigitalOcean Provider**
-1. Sign up at [DigitalOcean](https://www.digitalocean.com/)
-2. Generate API token with read/write permissions
-3. Configure:
-```bash
-devpod provider add digitalocean
-devpod provider use digitalocean
-devpod provider update digitalocean --option DIGITALOCEAN_ACCESS_TOKEN=your_token
-devpod provider update digitalocean --option DROPLET_SIZE=s-4vcpu-8gb
-```
-
-### ☁️ **AWS Provider**
-```bash
-pip install awscli
-aws configure
-devpod provider add aws
-devpod provider use aws
-devpod provider update aws --option AWS_INSTANCE_TYPE=t3.medium
-devpod provider update aws --option AWS_REGION=us-east-1
-```
-
-### 🔵 **Azure Provider**
-```bash
-brew install azure-cli  # macOS
-az login
-devpod provider add azure
-devpod provider use azure
-devpod provider update azure --option AZURE_VM_SIZE=Standard_B2s
-devpod provider update azure --option AZURE_LOCATION=eastus
-```
-
-### 🌥️ **Google Cloud Provider**
-```bash
-curl https://sdk.cloud.google.com | bash
-gcloud auth login
-devpod provider add gcp
-devpod provider use gcp
-devpod provider update gcp --option GOOGLE_PROJECT_ID=your-project
-devpod provider update gcp --option GOOGLE_MACHINE_TYPE=e2-medium
-```
-
-### 🖥️ **Local Docker Provider**
-```bash
-devpod provider add docker
-devpod provider use docker
-# No additional configuration needed
-```
-
-</details>
-
----
-
-🎯 **Ready to supercharge your development with 600+ AI agents?**
-
-```bash
-devpod up https://github.com/marcuspat/turbo-flow-claude --ide vscode
-```
+This project is part of the Bolo Tank Game implementation.
