@@ -1,5 +1,4 @@
 #!/bin/bash
-
 # Clone the repository
 echo "Cloning repository..."
 git clone https://github.com/marcuspat/turbo-flow-claude.git
@@ -29,7 +28,7 @@ echo "Making scripts executable..."
 chmod +x ./devpods/*.sh
 
 # Run the setup script
-echo "Running codespace_setup.sh..."
-./devpods/codespace_setup.sh
+#echo "Running codespace_setup.sh..."
+#./devpods/codespace_setup.sh
 
 echo "Script completed!"
