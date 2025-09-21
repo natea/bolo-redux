@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bolo Tank Game</title>
+    <link rel="stylesheet" href="css/game.css">
+</head>
+<body>
+    <div id="game-container">
+        <div id="hud">
+            <div id="score-panel">
+                <h3>Scores</h3>
+                <div id="score-list"></div>
+            </div>
+            <div id="player-panel">
+                <h3>Players</h3>
+                <div id="player-list"></div>
+            </div>
+            <div id="game-info">
+                <div id="health-bar">
+                    <div class="bar-label">Health</div>
+                    <div class="bar-container">
+                        <div class="bar-fill" id="health-fill"></div>
+                    </div>
+                </div>
+                <div id="ammo-counter">Ammo: <span id="ammo-count">30</span></div>
+                <div id="connection-status">Status: <span id="status-text">Connecting...</span></div>
+            </div>
+        </div>
+
+        <canvas id="game-canvas" width="1200" height="800"></canvas>
+
+        <div id="controls-help">
+            <h4>Controls</h4>
+            <p>WASD: Move | Mouse: Aim | Click: Shoot</p>
+        </div>
+    </div>
+
+    <!-- Socket.IO Client -->
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+
+    <!-- Game Scripts -->
+    <script src="js/Vector2D.js"></script>
+    <script src="js/Tank.js"></script>
+    <script src="js/Bullet.js"></script>
+    <script src="js/Terrain.js"></script>
+    <script src="js/NetworkClient.js"></script>
+    <script src="js/GameRenderer.js"></script>
+    <script src="js/InputManager.js"></script>
+    <script src="js/HUD.js"></script>
+    <script src="js/Game.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
