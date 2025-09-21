@@ -1,0 +1,40 @@
+{
+  "name": "bolo-game-tests",
+  "version": "1.0.0",
+  "description": "Comprehensive test suite for Bolo multiplayer game",
+  "scripts": {
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "test:coverage": "vitest --coverage",
+    "test:watch": "vitest --watch",
+    "test:unit": "vitest run tests/unit",
+    "test:integration": "vitest run tests/integration",
+    "test:e2e": "playwright test",
+    "test:performance": "vitest run tests/performance",
+    "test:all": "npm run test:unit && npm run test:integration && npm run test:e2e && npm run test:performance",
+    "playwright:install": "playwright install",
+    "playwright:debug": "playwright test --debug",
+    "playwright:ui": "playwright test --ui",
+    "benchmark": "vitest run tests/performance --reporter=verbose",
+    "coverage:serve": "vitest --coverage --ui",
+    "lint:tests": "eslint tests/**/*.{ts,js}",
+    "format:tests": "prettier --write tests/**/*.{ts,js}"
+  },
+  "dependencies": {
+    "ws": "^8.14.2"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.40.0",
+    "@types/node": "^20.8.0",
+    "@types/ws": "^8.5.8",
+    "@vitest/coverage-v8": "^1.0.0",
+    "@vitest/ui": "^1.0.0",
+    "eslint": "^8.50.0",
+    "prettier": "^3.0.0",
+    "typescript": "^5.2.0",
+    "vitest": "^1.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
